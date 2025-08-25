@@ -5,11 +5,25 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
+import { ref, onMounted } from 'vue'
+import { fetchProducts } from '@/services/productService'
+
+const products = ref([])
+const error = ref(null)
+
+onMounted(async () => {
+  try {
+    products.value = await fetchProducts()
+  } catch (err) {
+    error.value = err.message
+  }
+})
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
 
 <template>
+
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -19,6 +33,25 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     Vue’s
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
     provides you with all information you need to get started.
+    <div>TET!</div>
+  <div class="greetings">
+    <h1 class="green">Product List</h1>
+    
+    <div v-if="error">
+      <p style="color: red;">Error: {{ error }}</p>
+    </div>
+
+    <div v-else-if="products.length === 0">
+      <p>Loading products...</p>
+    </div>
+
+    <ul v-else>
+      <li v-for="product in products" :key="product.id">
+        {{ product.name }} — {{ product.price }} €
+      </li>
+    </ul>
+  </div>
+  <div>TEST2</div>
   </WelcomeItem>
 
   <WelcomeItem>

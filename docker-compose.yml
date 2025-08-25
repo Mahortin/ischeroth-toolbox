@@ -34,15 +34,30 @@ services:
         SPRING_DATASOURCE_PASSWORD: shoppass
         SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
 
+  # deployment setup
+  # frontend:
+  #     build:
+  #       context: ./vue-frontend
+  #       # for development
+  #       dockerfile: Dockerfile.dev  
+  #       # for deployment
+  #       # dockerfile: Dockerfile  
+  #     ports:
+  #       - "5173:5173"
+  
+  # dev setup
   frontend:
-      build:
-        context: ./vue-frontend
-        # for development
-        dockerfile: Dockerfile.dev  
-        # for deployment
-        # dockerfile: Dockerfile  
-      ports:
-        - "5173:5173"
+    build:
+      context: ./vue-frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./vue-frontend:/app:delegated      # mount your code
+      - /app/node_modules                  # keep container deps from being shadowed
+    environment:
+      - CHOKIDAR_USEPOLLING=true           # needed on some hosts/VMs
+    command: npm run dev -- --host 0.0.0.0 # make Vite reachable from outside
 
 
 volumes:

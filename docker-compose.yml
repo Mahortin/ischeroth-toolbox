@@ -3,6 +3,11 @@ services:
   mariadb:
     image: mariadb:11.3
     container_name: mariadb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: shop
@@ -15,22 +20,27 @@ services:
       - db_data:/var/lib/mysql
 
   backend:
-    build:
-      context: ./spring-backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mariadb
+      build:
+        context: ./spring-backend
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+      depends_on:
+        - mariadb
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shop
+        SPRING_DATASOURCE_USERNAME: shopuser
+        SPRING_DATASOURCE_PASSWORD: shoppass
 
-frontend:
-    build:
-      context: ./vue-frontend
-      dockerfile: Dockerfile  
-    ports:
-      - "5173:80"
-    # volume not needed in production
-    volumes:                  
-      - ./vue-frontend:/app
+  frontend:
+      build:
+        context: ./vue-frontend
+        # for development
+        dockerfile: Dockerfile.dev  
+        # for deployment
+        # dockerfile: Dockerfile  
+      ports:
+        - "5173:80"
 
 
 volumes:

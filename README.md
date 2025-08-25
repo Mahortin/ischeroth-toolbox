@@ -20,12 +20,25 @@ cd spring-backend
 ./mvnw spring-boot:run
 ```
 
+OR to run with docker compose:
+```bash
+cd spring-backend
+./mvnw clean package -DskipTests
+```
+
 ### MariaDB in Docker
 to persists data
 run in project
 ```bash
 # start container
 docker compose up
+```
+
+### Check if everything runs
+
+### backend
+```bash
+curl http://localhost:8080/api/products
 ```
 
 

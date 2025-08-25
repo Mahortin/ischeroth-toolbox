@@ -4,7 +4,7 @@ services:
     image: mariadb:11.3
     container_name: mariadb
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s
       retries: 5
       start_period: 10s
@@ -26,11 +26,13 @@ services:
       ports:
         - "8080:8080"
       depends_on:
-        - mariadb
+        mariadb:
+          condition: service_healthy
       environment:
         SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shop
         SPRING_DATASOURCE_USERNAME: shopuser
         SPRING_DATASOURCE_PASSWORD: shoppass
+        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
 
   frontend:
       build:

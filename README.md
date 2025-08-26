@@ -41,6 +41,11 @@ docker compose up
 curl http://localhost:8080/api/products
 ```
 
+### frontend has access to backend
+```bash
+curl -i -X OPTIONS     -H "Access-Control-Request-Method: GET"   http://localhost:8080/api/products
+```
+
 
 ### tmp db stuff
 

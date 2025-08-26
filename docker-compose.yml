@@ -1,8 +1,13 @@
-version: "3.9"
+# version: "3.9"
 services:
   mariadb:
     image: mariadb:11.3
     container_name: mariadb
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: shop
@@ -15,22 +20,44 @@ services:
       - db_data:/var/lib/mysql
 
   backend:
-    build:
-      context: ./spring-backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mariadb
+      build:
+        context: ./spring-backend
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+      depends_on:
+        mariadb:
+          condition: service_healthy
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shop
+        SPRING_DATASOURCE_USERNAME: shopuser
+        SPRING_DATASOURCE_PASSWORD: shoppass
+        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
 
-frontend:
+  # deployment setup
+  # frontend:
+  #     build:
+  #       context: ./vue-frontend
+  #       # for development
+  #       dockerfile: Dockerfile.dev  
+  #       # for deployment
+  #       # dockerfile: Dockerfile  
+  #     ports:
+  #       - "5173:5173"
+  
+  # dev setup
+  frontend:
     build:
       context: ./vue-frontend
-      dockerfile: Dockerfile  
+      dockerfile: Dockerfile.dev
     ports:
-      - "5173:80"
-    # volume not needed in production
-    volumes:                  
-      - ./vue-frontend:/app
+      - "5173:5173"
+    volumes:
+      - ./vue-frontend:/app:delegated      # mount your code
+      - /app/node_modules                  # keep container deps from being shadowed
+    environment:
+      - CHOKIDAR_USEPOLLING=true           # needed on some hosts/VMs
+    command: npm run dev -- --host 0.0.0.0 # make Vite reachable from outside
 
 
 volumes:

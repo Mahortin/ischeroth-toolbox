@@ -46,6 +46,10 @@ curl http://localhost:8080/api/products
 curl -i -X OPTIONS     -H "Access-Control-Request-Method: GET"   http://localhost:8080/api/products
 ```
 
+### known errors
+when adjusting spring-backend code; verify:
++ that the backend-image is deleted; otherwise old .jar might be used
++ optional: bind-mount .jar from /target into app during development
 
 ### tmp db stuff
 

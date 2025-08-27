@@ -5,25 +5,11 @@ import ToolingIcon from './icons/IconTooling.vue'
 import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
-import { ref, onMounted } from 'vue'
-import { fetchProducts } from '@/services/productService'
-
-const products = ref([])
-const error = ref(null)
-
-onMounted(async () => {
-  try {
-    products.value = await fetchProducts()
-  } catch (err) {
-    error.value = err.message
-  }
-})
 
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
 </script>
 
 <template>
-
   <WelcomeItem>
     <template #icon>
       <DocumentationIcon />
@@ -33,25 +19,6 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     Vue’s
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
     provides you with all information you need to get started.
-    <div>TET!</div>
-  <div class="greetings">
-    <h1 class="green">Product List</h1>
-    
-    <div v-if="error">
-      <p style="color: red;">Error: {{ error }}</p>
-    </div>
-
-    <div v-else-if="products.length === 0">
-      <p>Loading products...</p>
-    </div>
-
-    <ul v-else>
-      <li v-for="product in products" :key="product.id">
-        {{ product.name }} — {{ product.price }} €
-      </li>
-    </ul>
-  </div>
-  <div>TEST2</div>
   </WelcomeItem>
 
   <WelcomeItem>
@@ -65,9 +32,8 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     recommended IDE setup is
     <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a>
     +
-    <a href="https://github.com/vuejs/language-tools" target="_blank" rel="noopener"
-      >Vue - Official</a
-    >. If you need to test your components and web pages, check out
+    <a href="https://github.com/johnsoncodehk/volar" target="_blank" rel="noopener">Volar</a>. If
+    you need to test your components and web pages, check out
     <a href="https://vitest.dev/" target="_blank" rel="noopener">Vitest</a>
     and
     <a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a>

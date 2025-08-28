@@ -1,7 +1,6 @@
 <script setup>
 import HelloWorld from './components/PageHeader.vue'
-import AttributesView from './components/AttributesView.vue'
-import AllSkillsView from './components/AllSkillsView.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
@@ -12,9 +11,12 @@ import AllSkillsView from './components/AllSkillsView.vue'
     </div>
   </header>
 
+  <nav>
+    <RouterLink to="/">Go to Home</RouterLink>
+    <RouterLink to="/sanity">Go to Sanity</RouterLink>
+  </nav>
   <main class="splitSection">
-    <AttributesView />
-    <AllSkillsView />
+    <RouterView />
   </main>
   <footer>
     <img

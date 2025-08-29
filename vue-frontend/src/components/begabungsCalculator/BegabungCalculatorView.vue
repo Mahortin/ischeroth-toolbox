@@ -1,6 +1,6 @@
 <script setup>
 import AttributesView from './AttributesView.vue'
-import AllSkillsView from './AllSkillsView.vue'
+import AllSkillsView from './skillComponents/AllSkillsView.vue'
 
 </script>
 

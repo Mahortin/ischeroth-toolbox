@@ -1,8 +1,8 @@
 <script setup>
-import SkillsFilter from './skillComponents/SkillsFilter.vue'
-import CoreStatsView from './skillComponents/CoreStatsView.vue'
-import CombatSkillsView from './skillComponents/CombatSkillsView.vue'
-import SkillView from './skillComponents/SkillsView.vue'
+import SkillsFilter from './SkillsFilter.vue'
+import CoreStatsView from './CoreStatsView.vue'
+import CombatSkillsView from './CombatSkillsView.vue'
+import SkillView from './SkillsView.vue'
 import { useSkillFilterStore } from '@/stores/skillFilterStore'
 
 const store = useSkillFilterStore()

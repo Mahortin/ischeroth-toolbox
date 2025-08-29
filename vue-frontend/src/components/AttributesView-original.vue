@@ -1,5 +1,5 @@
 <script setup>
-import AttributeComponent from './SingleAttribute.vue'
+import AttributeComponent from './toolbox/SingleAttribute.vue'
 import { useCharacterStore } from '@/stores/characterStore'
 
 const store = useCharacterStore()

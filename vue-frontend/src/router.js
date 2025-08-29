@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import BegabungCalculator from './components/BegabungCalculatorView.vue'
-import SanityView from './components/SanityView.vue'
-import SanityAttributesView from './components/SanityAttributesView.vue'
+import BegabungCalculator from './components/begabungsCalculator/BegabungCalculatorView.vue'
+import SanityView from './components/sanityViews/SanityView.vue'
+import SanityAttributesView from './components/sanityViews/SanityAttributesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -1,5 +1,5 @@
 <script setup>
-import AttributesView from './AttributesView.vue'
+import AttributesView from './attributeComponents/AttributesView.vue'
 import AllSkillsView from './skillComponents/AllSkillsView.vue'
 
 </script>

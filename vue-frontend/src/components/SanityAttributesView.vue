@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted } from 'vue'
-import { attributeStore } from '@/stores/attributeStore'
+import { useAttributeStore } from '@/stores/attributeStore'
 // import AttributeComponent from './SingleAttribute.vue'
 
-const store = attributeStore()
+const store = useAttributeStore()
 
 onMounted(() => {
   store.ensureLoaded().catch(() => {}) // optional: swallow to avoid console noise

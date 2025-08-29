@@ -1,7 +1,7 @@
 <script setup>
-import { combatSkillStore } from '@/stores/combatSkillStore'
+import { useCombatSkillStore } from '@/stores/combatSkillStore'
 
-const store = combatSkillStore()
+const store = useCombatSkillStore()
 </script>
 
 <template>

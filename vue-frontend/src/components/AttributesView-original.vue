@@ -1,8 +1,8 @@
 <script setup>
 import AttributeComponent from './SingleAttribute.vue'
-import { characterStore } from '@/stores/characterStore'
+import { useCharacterStore } from '@/stores/characterStore'
 
-const store = characterStore()
+const store = useCharacterStore()
 
 function doNothing() {
   window.confirm(store)

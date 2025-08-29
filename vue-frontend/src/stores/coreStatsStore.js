@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
-import { characterStore } from './characterStore'
-import { skillFilterStore } from './skillFilterStore'
+import { useCharacterStore } from './characterStore'
+import { useSkillFilterStore } from './skillFilterStore'
 
-export const coreStatsStore = defineStore('coreStatsStore', {
+export const useCoreStatsStore = defineStore('coreStatsStore', {
   state: () => ({
-    characterStore: characterStore(),
-    filter: skillFilterStore(),
+    characterStore: useCharacterStore(),
+    filter: useSkillFilterStore(),
     coreStats: [
       {
         key: 'robustheit',

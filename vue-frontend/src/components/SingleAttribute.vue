@@ -1,7 +1,7 @@
 <script setup>
 // import { ref, reactive, computed } from 'vue'
 // import { ref, reactive } from "vue";
-import { characterStore } from '@/stores/characterStore'
+import { useCharacterStore } from '@/stores/characterStore'
 import { storeToRefs } from 'pinia'
 
 defineProps({
@@ -11,7 +11,7 @@ defineProps({
   increased: Number,
 })
 
-const store = characterStore()
+const store = useCharacterStore()
 const { getValueByKey } = storeToRefs(store)
 </script>
 

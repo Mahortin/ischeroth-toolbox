@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const skillFilterStore = defineStore('skillFilterStore', {
+export const useSkillFilterStore = defineStore('skillFilterStore', {
   state: () => ({
     skillgroups: [
       { key: 'coreStat', name: 'Grundwerte' },

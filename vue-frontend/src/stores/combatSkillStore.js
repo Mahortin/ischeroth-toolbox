@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
-import { characterStore } from './characterStore'
-import { skillFilterStore } from './skillFilterStore'
+import { useCharacterStore } from './characterStore'
+import { useSkillFilterStore } from './skillFilterStore'
 
-export const combatSkillStore = defineStore('combatSkillStore', {
+export const useCombatSkillStore = defineStore('combatSkillStore', {
   state: () => ({
-    characterStore: characterStore(),
-    filter: skillFilterStore(),
+    characterStore: useCharacterStore(),
+    filter: useSkillFilterStore(),
     skills: [
       {
         key: 'dolchFechtwaffen',

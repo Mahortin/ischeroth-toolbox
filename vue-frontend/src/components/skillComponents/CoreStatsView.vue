@@ -1,7 +1,7 @@
 <script setup>
-import { coreStatsStore } from '@/stores/coreStatsStore'
+import { useCoreStatsStore } from '@/stores/coreStatsStore'
 
-const store = coreStatsStore()
+const store = useCoreStatsStore()
 </script>
 
 <template>

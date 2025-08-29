@@ -1,7 +1,7 @@
 <script setup>
-import { characterStore } from '@/stores/characterStore'
+import { useCharacterStore } from '@/stores/characterStore'
 
-const store = characterStore()
+const store = useCharacterStore()
 </script>
 
 <template>

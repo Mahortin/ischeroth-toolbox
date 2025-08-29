@@ -59,6 +59,18 @@ export const useAttributeStore = defineStore('attributeStore', {
       this.loadedAt = null;
     },
 
+    // user interface actions
+    increaseAttribute(id, newValue) {
+      if (id === null) window.alert('attribute is null!')
+
+      this.attributes.forEach((attribute) => {
+        if (attribute.key === id) {
+          attribute.increased = attribute.increased === newValue ? 0 : newValue
+        }
+      })
+      // this.updateStores(id)
+    },
+
     // async addTodo(payload) {
     //   // optional: optimistic update
     //   const temp = { id: `temp_${Math.random()}`, ...payload };

@@ -1,16 +1,16 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
-// import AttributeComponent from './SingleAttribute.vue'
+import SimpleSingleAttribute from '@/components/begabungsCalculator/attributeComponents/SimpleSingleAttribute.vue'
 
 const store = useAttributeStore()
 
 onMounted(() => {
   store.ensureLoaded().catch(() => {}) // optional: swallow to avoid console noise
 })
-// function doNothing() {
-//   window.confirm(store)
-// }
+function doNothing() {
+  window.confirm(store)
+}
 </script>
 
 <template>
@@ -30,11 +30,27 @@ onMounted(() => {
 
     <ul v-else>
       <li v-for="attribute in store.attributes" :key="attribute.id">
-        {{ attribute.name }} — {{ attribute.value }} 
+        {{ attribute.shortName }} — {{ attribute.name }} — {{ attribute.value }} — {{ attribute.increased }} 
       </li>
     </ul>
     <div>TEST2</div>
   </div>
+
+  <div class="column">
+    <h2>Attribute</h2>
+    <div v-for="attribute in store.attributes" :key="attribute.id" :value="attribute.value">
+      <SimpleSingleAttribute
+        :key="attribute.id"
+        :attributeId="attribute.id"
+        :attributeShortName="attribute.shortName"
+        :attributeName="attribute.name"
+        :attributeValue="attribute.value"
+        :increased="attribute.increased"
+        @attribute-changed="doNothing"
+      ></SimpleSingleAttribute>
+    </div>
+  </div>
+
 
 
     <!-- <div v-for="attribute in store.attributes" :key="attribute.key" :value="attribute.value">

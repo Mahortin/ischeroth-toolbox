@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS product (
 -- Create attributes table
 CREATE TABLE IF NOT EXISTS attributes (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  shortname VARCHAR(255) NOT NULL,
+  short_name VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
   value INTEGER NOT NULL, 
   increased BOOLEAN NOT NULL
@@ -19,7 +19,7 @@ INSERT INTO product (name, price) VALUES
 ('Produkt C', 6.66);
 
 -- Set attributes
-INSERT INTO attributes (shortname, name, value, increased) VALUES
+INSERT INTO attributes (short_name, name, value, increased) VALUES
 ('Mu', 'Mut', 12, 0),
 ('Au', 'Aufmerksamkeit', 12, 0),
 ('Ve', 'Verstand', 12, 0),

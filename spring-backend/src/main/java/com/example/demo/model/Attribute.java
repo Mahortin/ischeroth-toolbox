@@ -13,12 +13,13 @@ public class Attribute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-     @Column(name = "short_name")
+    @Column(name = "short_name")
     private String shortName;
     @Column(name = "name")
     private String name;
     @Column(name = "value")
     private Integer value;
+    private Integer valueIncreased;
     @Column(name = "increased")
     private Boolean increased;
 
@@ -28,6 +29,7 @@ public class Attribute {
         this.shortName = shortName;
         this.name = name;
         this.value = value;
+        this.valueIncreased = 0;
         this.increased = increased;
     }
 
@@ -43,6 +45,9 @@ public class Attribute {
 
     public Integer getValue() { return value; }
     public void setValue(Integer value) { this.value = value; }
+
+    public Integer getValueIncreased() { return valueIncreased; }
+    public void setValueIncreased(Integer valueIncreased) { this.valueIncreased = valueIncreased; }
 
     public Boolean getIncreased() { return increased; }
     public void setIncreased(Boolean increased) { this.increased = increased; }

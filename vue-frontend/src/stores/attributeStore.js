@@ -16,9 +16,18 @@ export const useAttributeStore = defineStore('attributeStore', {
     // example derived data
     completedCount: (s) => s.attributes.filter(t => t.completed).length,
     getValueByKey: (state) => {
-      return (attributeKey) =>
-        state.attributes.find((attribute) => attribute.key === attributeKey).value +
-        state.attributes.find((attribute) => attribute.key === attributeKey).increased
+      return (attributeId) =>
+        state.attributes.find((attribute) => attribute.id === attributeId).value +
+        state.attributes.find((attribute) => attribute.id === attributeId).increased
+    },
+    getValue: (state) => {
+      return (attributeId) =>
+        state.attributes.find((attribute) => attribute.id === attributeId).value 
+    },
+    getIncreasedValue: (state) => {
+      return (attributeId) =>
+        state.attributes.find((attribute) => attribute.id === attributeId).value +
+        state.attributes.find((attribute) => attribute.id === attributeId).increased
     },
   },
   actions: {
@@ -64,12 +73,26 @@ export const useAttributeStore = defineStore('attributeStore', {
       if (id === null) window.alert('attribute is null!')
 
       this.attributes.forEach((attribute) => {
-        if (attribute.key === id) {
+        if (attribute.id === id) {
           attribute.increased = attribute.increased === newValue ? 0 : newValue
         }
       })
       // this.updateStores(id)
     },
+    adjusteBaseValue(id, adjustment) {
+      // window.confirm('reached characterStore')
+      if (id === null) window.alert('attribute is null!')
+
+      this.attributes.forEach((attribute) => {
+        if (attribute.id === id) {
+          attribute.value = attribute.value + adjustment
+          if (attribute.value > 16 || attribute.value < 7)
+            attribute.value = attribute.value > 16 ? 16 : 7
+        }
+      })
+      this.updateStores(id)
+    },
+
 
     // async addTodo(payload) {
     //   // optional: optimistic update

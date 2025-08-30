@@ -1,6 +1,8 @@
 <script setup>
 // import { ref, reactive, computed } from 'vue'
 // import { ref, reactive } from "vue";
+import { useAttributeStore } from '@/stores/attributeStore'
+import { storeToRefs } from 'pinia'
 
 defineProps({
   attributeId: String,
@@ -10,14 +12,31 @@ defineProps({
   increased: Number,
 })
 
+const store = useAttributeStore()
+const { getIncreasedValue } = storeToRefs(store)
+
 </script>
 
 <template>
   <div class="attribute-info wrapper">
     <span class="attribute-name item1">{{ attributeShortName }} — {{ attributeName }} — {{ increased }}</span>
     <label :class="increased > 0 ? 'highlight item2' : 'item2'">{{
-      attributeValue
+      getIncreasedValue(attributeId)
     }}</label>
+        <div class="item3">
+      <button class="adjust-attribute add" @click="store.adjusteBaseValue(attributeId, 1)">
+        +1
+      </button>
+      <button class="adjust-attribute add" @click="store.adjusteBaseValue(attributeId, 4)">
+        +4
+      </button>
+      <button class="adjust-attribute reduce" @click="store.adjusteBaseValue(attributeId, -1)">
+        -1
+      </button>
+      <button class="adjust-attribute reduce" @click="store.adjusteBaseValue(attributeId, -4)">
+        -4
+      </button>
+    </div>
    
     <div>
       <button

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { fetchSkills } from '@/services/skillService'
 import { useAttributeStore } from './attributeStore'
+import { useFilterStore } from './filterStore'
 
 export const useSkillStore = defineStore('skillStore', {
   state: () => ({
@@ -10,10 +11,22 @@ export const useSkillStore = defineStore('skillStore', {
     error: null,
     loadedAt: null, // Date or timestamp for caching / staleness
     _promise: null, // private: track in-flight fetch
+    filter: useFilterStore(),
   }),
 
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
+    getFilteredSkills: (state) => {
+      return state.filter.groupfilter.length === 0
+        ? state.skills
+        : state.skills.filter((skill) =>
+            !state.filter.groupfilter.includes('increased')
+              ? state.filter.groupfilter.includes(skill.group)
+              : state.filter.groupfilter.length === 1
+                ? skill.increased
+                : skill.increased && state.filter.groupfilter.includes(skill.group),
+          )
+    },
   },
   actions: {
     async ensureLoaded({ force = false, ttlMs = 0 } = {}) {

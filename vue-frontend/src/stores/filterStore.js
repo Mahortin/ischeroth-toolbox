@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useFilterStore = defineStore('filterStore', {
   state: () => ({
     skillgroups: [
-      { key: 'coreStat', name: 'Grundwerte' },
+      { key: 'coreStat', name: 'Grundwert' },
       { key: 'kampf', name: 'Kampf' },
       { key: 'körper', name: 'Körper' },
       { key: 'gesellschaft', name: 'Gesellschaft' },
@@ -19,12 +19,12 @@ export const useFilterStore = defineStore('filterStore', {
     resetFilter() {
       this.groupfilter = []
     },
-    addFilter(key) {
-      if (key === null) window.alert('group is null!')
+    addFilter(groupName) {
+      if (groupName === null) window.alert('group is null!')
 
-      !this.groupfilter.includes(key)
-        ? this.groupfilter.push(key)
-        : this.groupfilter.splice(this.groupfilter.indexOf(key), 1)
+      !this.groupfilter.includes(groupName)
+        ? this.groupfilter.push(groupName)
+        : this.groupfilter.splice(this.groupfilter.indexOf(groupName), 1)
     },
   },
 })

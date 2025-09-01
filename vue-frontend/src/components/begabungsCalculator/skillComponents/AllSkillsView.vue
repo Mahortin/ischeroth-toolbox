@@ -1,5 +1,5 @@
 <script setup>
-import SkillsFilter from './SkillsFilter.vue'
+import FilterView from './FilterView.vue'
 import CoreStatsView from './CoreStatsView.vue'
 import CombatSkillsView from './CombatSkillsView.vue'
 import SkillView from './SkillsView.vue'
@@ -11,7 +11,7 @@ const store = useFilterStore()
 <template>
   <div class="column">
     <h2>Talente</h2>
-    <SkillsFilter />
+    <FilterView />
     <CoreStatsView
       v-if="
         store.groupfilter.length === 0 ||

@@ -6,10 +6,10 @@ const store = useFilterStore()
 
 <template>
   <div>
-    <div class="filter-buttons" v-for="group in store.skillgroups" :key="group.key">
+    <div class="filter-buttons" v-for="group in store.skillgroups" :key="group.key" >
       <button
-        :class="store.groupfilter.includes(group.key) ? 'highlight' : ''"
-        @click="store.addFilter(group.key)"
+        :class="store.groupfilter.includes(group.name) ? 'highlight' : ''"
+        @click="store.addFilter(group.name)"
       >
         {{ group.name }}
       </button>

@@ -13,7 +13,7 @@ const store = useSkillStore()
         <th>Gruppe</th>
       </tr>
       <tr
-        v-for="skill in store.skills"
+        v-for="skill in store.getFilteredSkills"
         :class="[skill.increased ? 'skill-info highlight' : 'skill-info']"
         :key="skill.id"
         :value="skill.value"

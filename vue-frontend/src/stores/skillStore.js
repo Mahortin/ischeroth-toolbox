@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 import { fetchSkills } from '@/services/skillService';
+import { useAttributeStore } from './attributeStore';
 
 export const useSkillStore = defineStore('skillStore', {
   state: () => ({
     skills: [], 
+    attributeStore: useAttributeStore(),
     loading: false,
     error: null, 
     loadedAt: null, // Date or timestamp for caching / staleness
@@ -50,6 +52,79 @@ export const useSkillStore = defineStore('skillStore', {
 
     invalidate() {
       this.loadedAt = null;
+    },
+
+    /* --- user interface actions --- */
+    increaseSkill(id) {
+      // window.alert('reached sth - id:' + id)
+      // window.alert('reached sth')
+      if (id === null) window.alert('skill is null!')
+
+        this.skills.forEach((skill) => {
+          // window.alert('reached inner circle')
+          if (skill.id === id) {
+            // window.alert('skill.id ' + skill.id + " | id:" + id)
+            skill.value = skill.value + 1
+            if (skill.value > 18 || skill.value < 1)
+              skill.value = skill.value > 18 ? 18 : 0
+          }
+        })
+    },
+    calcAllSkills() {
+      // window.alert('reached calcAllSkills')
+      this.skills.forEach((skill) => {
+        // window.alert('calcAllSkills: calcSkill for: ' + skill.name)
+        this.calcSkill(skill)
+      })
+      // window.alert('end of calcAllSkills')
+    },
+    calcUpdatedSkills(id) {
+      this.skills.forEach((skill) => {
+        if (!skill.attributes.includes(id)) return
+        this.calcSkill(skill)
+      })
+    },
+    calcSkill(skill) {
+      // window.alert('reached calcSkill for: ' + skill.name)
+      // window.alert('reached milestone 0')
+
+      var firstAttribute = this.attributeStore.attributes.find(
+        (attribute) => attribute.shortName === skill.attributes[0],
+      )
+      // window.alert('reached milestone 0.3')
+      var secondAttribute = this.attributeStore.attributes.find(
+        (attribute) => attribute.shortName === skill.attributes[1],
+      )
+      // window.alert('reached milestone 0.6')
+      var thirdAttribute = this.attributeStore.attributes.find(
+        (attribute) => attribute.shortName === skill.attributes[2],
+      )
+      // window.alert('reached milestone 1')
+      if (
+        firstAttribute.increased === 0 &&
+        secondAttribute.increased === 0 &&
+        thirdAttribute.increased === 0
+      ) {
+        skill.value = Math.round(
+          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / skill.divisor,
+        )
+        skill.increased = false
+      } else {
+        var baseValue = Math.round(
+          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / skill.divisor,
+        )
+        var value = Math.round(
+          (firstAttribute.value +
+            secondAttribute.value +
+            thirdAttribute.value +
+            firstAttribute.increased +
+            secondAttribute.increased +
+            thirdAttribute.increased) /
+            skill.divisor,
+        )
+        skill.value = value
+        skill.increased = value > baseValue ? true : false
+      }
     },
   },
 })

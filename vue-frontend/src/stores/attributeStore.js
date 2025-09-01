@@ -13,8 +13,6 @@ export const useAttributeStore = defineStore('attributeStore', {
 
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
-    // example derived data
-    completedCount: (s) => s.attributes.filter(t => t.completed).length,
     getValueByKey: (state) => {
       return (attributeId) =>
         state.attributes.find((attribute) => attribute.id === attributeId).value +

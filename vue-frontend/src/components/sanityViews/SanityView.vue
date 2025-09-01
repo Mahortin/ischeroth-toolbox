@@ -76,7 +76,7 @@ onMounted(async () => {
 
     <ul v-else>
       <li v-for="skill in skills" :key="skill.id">
-        {{ skill.name }} — {{ skill.value }} — {{ skill.group }} 
+        {{ skill.name }} — {{ skill.value }} — {{ skill.group }} — {{ skill.attributes }} 
       </li>
     </ul>
     <div>TEST2</div>

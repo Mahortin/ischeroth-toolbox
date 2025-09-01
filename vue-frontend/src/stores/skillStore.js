@@ -78,9 +78,12 @@ export const useSkillStore = defineStore('skillStore', {
       })
       // window.alert('end of calcAllSkills')
     },
-    calcUpdatedSkills(id) {
+    calcUpdatedSkills(shortName) {
+      // window.alert('reached calcUpdatedSkills and check for: ' + shortName)
       this.skills.forEach((skill) => {
-        if (!skill.attributes.includes(id)) return
+        // window.alert('reached calcUpdatedSkills for: ' + skill.name + ':' + skill.id + " | " + skill.attributes)
+        // window.alert('skill.attributes.includes(shortName): ' + skill.attributes.includes(shortName))
+        if (!skill.attributes.includes(shortName)) return
         this.calcSkill(skill)
       })
     },

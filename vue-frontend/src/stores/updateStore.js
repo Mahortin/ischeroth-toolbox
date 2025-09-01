@@ -10,7 +10,6 @@ export const useUpdateStore = defineStore('updateStore', {
     // coreStats: useCoreStatsStore(),
     //toDo: Implement filters
     filter: useSkillFilterStore(),
-    
   }),
 
   getters: {
@@ -27,15 +26,17 @@ export const useUpdateStore = defineStore('updateStore', {
     // },
   },
   actions: {
-    updateStores(id) {
+    updateStores(shortName) {
       // window.alert('reached updateStore')
       //ToDo: update stores
-      this.skillStore.calcAllSkills();
-      //in future: calcUpdatedSkills
-      // this.skillStore.calcUpdatedSkills(id);
+      //in future: calcUpdatedSkills()
+
+      // this.skillStore.calcAllSkills()
+      this.skillStore.calcUpdatedSkills(shortName);
       // this.combatSkills.calcUpdatedSkills(key)
       // this.coreStats.calcUpdatedCoreStats(key)
-      return id
+      // return id
+      return shortName
     },
     resetFilter() {
       this.groupfilter = []
@@ -47,7 +48,5 @@ export const useUpdateStore = defineStore('updateStore', {
         ? this.groupfilter.push(key)
         : this.groupfilter.splice(this.groupfilter.indexOf(key))
     },
-    
-    
   },
 })

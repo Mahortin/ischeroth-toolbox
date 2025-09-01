@@ -73,9 +73,9 @@ export const useAttributeStore = defineStore('attributeStore', {
       this.attributes.forEach((attribute) => {
         if (attribute.id === id) {
           attribute.increased = attribute.increased === newValue ? 0 : newValue
+          this.updateStore.updateStores(attribute.shortName)
         }
       })
-      this.updateStore.updateStores(id)
     },
     adjusteBaseValue(id, adjustment) {
       // window.confirm('reached characterStore')
@@ -86,9 +86,9 @@ export const useAttributeStore = defineStore('attributeStore', {
           attribute.value = attribute.value + adjustment
           if (attribute.value > 16 || attribute.value < 7)
             attribute.value = attribute.value > 16 ? 16 : 7
+          this.updateStore.updateStores(attribute.shortName)
         }
       })
-      this.updateStore.updateStores(id)
     },
 
     // async addTodo(payload) {

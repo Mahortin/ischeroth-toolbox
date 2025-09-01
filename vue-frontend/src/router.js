@@ -4,6 +4,7 @@ import BegabungCalculator from './components/begabungsCalculator/BegabungCalcula
 import SanityView from './components/sanityViews/SanityView.vue'
 import SanityAttributesView from './components/sanityViews/SanityAttributesView.vue'
 import SanitySkillView from './components/sanityViews/SanitySkillView.vue'
+import SanityViewCombined from './components/sanityViews/SanityViewCombined.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,7 @@ const router = createRouter({
     { path: '/sanity', component: SanityView },
     { path: '/sanityAttributes', component: SanityAttributesView },
     { path: '/sanitySkills', component: SanitySkillView },
+    { path: '/sanityCombined', component: SanityViewCombined },
   ],
 })
 

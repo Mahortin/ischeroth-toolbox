@@ -1,6 +1,9 @@
 package com.example.demo.model;
 
+import com.example.demo.converter.StringArrayConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,13 +28,14 @@ public class Skill {
     private String groupKey;
     @Column(name = "divisor")
     private Integer divisor;
-    // @Column(name = "attributes")
-    // private String[] attributes;
+    @Column(name = "attributes")
+    @Convert(converter = StringArrayConverter.class)
+    private String[] attributes;
 
     public Skill() {}
 
-    // public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor, String[] attributes) {
-        public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor) {
+    public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor, String[] attributes) {
+        // public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor) {
         this.name = name;
         this.value = value;
         this.divisor = divisor;
@@ -63,6 +67,6 @@ public class Skill {
     public Integer getDivisor() { return divisor; }
     public void setDivisor(Integer divisor) { this.divisor = divisor; }
 
-    // public String[] getAttributes() { return attributes; }
-    // public void setAttributes(String[] attributes) { this.attributes = attributes; }
+    public String[] getAttributes() { return attributes; }
+    public void setAttributes(String[] attributes) { this.attributes = attributes; }
 }

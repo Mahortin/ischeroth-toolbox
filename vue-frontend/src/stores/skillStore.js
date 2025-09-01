@@ -6,6 +6,7 @@ import { useFilterStore } from './filterStore'
 export const useSkillStore = defineStore('skillStore', {
   state: () => ({
     skills: [],
+    grundwerte: [],
     attributeStore: useAttributeStore(),
     loading: false,
     error: null,
@@ -17,14 +18,25 @@ export const useSkillStore = defineStore('skillStore', {
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
     getFilteredSkills: (state) => {
-      return state.filter.groupfilter.length === 0
-        ? state.skills
-        : state.skills.filter((skill) =>
+      if (state.filter.groupfilter.length === 0)
+        return state.skills
+      return state.skills.filter((skill) =>
             !state.filter.groupfilter.includes('increased')
               ? state.filter.groupfilter.includes(skill.group)
               : state.filter.groupfilter.length === 1
                 ? skill.increased
                 : skill.increased && state.filter.groupfilter.includes(skill.group),
+          )
+    },
+    getFilteredGrundwerte: (state) => {
+      if (state.filter.groupfilter.length === 0)
+        return state.grundwerte
+      return state.grundwerte.filter((grundwert) =>
+            !state.filter.groupfilter.includes('increased')
+              ? state.filter.groupfilter.includes(grundwert.group)
+              : state.filter.groupfilter.length === 1
+                ? grundwert.increased
+                : grundwert.increased && state.filter.groupfilter.includes(grundwert.group),
           )
     },
   },
@@ -44,7 +56,8 @@ export const useSkillStore = defineStore('skillStore', {
       this._promise = (async () => {
         try {
           const data = await fetchSkills()
-          this.skills = data
+          this.skills = data.filter((entry) => entry.group !== "Grundwert")
+          this.grundwerte = data.filter((entry) => entry.group === "Grundwert")
           this.loadedAt = Date.now()
         } catch (e) {
           this.error = e
@@ -80,34 +93,43 @@ export const useSkillStore = defineStore('skillStore', {
         }
       })
     },
-    calcAllSkills() {
+    calcAllStats() {
       // window.alert('reached calcAllSkills')
+      this.grundwerte.forEach((grundwert) => {
+        this.calcNonCombatSkill(grundwert)
+      })
       this.skills.forEach((skill) => {
         // window.alert('calcAllSkills: calcSkill for: ' + skill.name)
-        skill.group === 'Kampf' ? this.calcCombatSkill(skill) : this.calcNonCombatSkill(skill)
+        skill.group === 'Kampf' ? this.calcCombatSkill(skill) : this.calcNonCombatStat(skill)
       })
       // window.alert('end of calcAllSkills')
     },
     calcUpdatedSkills(id) {
+      this.grundwerte.forEach((grundwert) => {
+        // window.alert('reached grundwert:' + grundwert.name)
+        if (!grundwert.attributes.includes(id)) return
+        this.calcNonCombatStat(grundwert)
+        // window.alert('reached end ')
+      })
       this.skills.forEach((skill) => {
         if (!skill.attributes.includes(id)) return
         skill.group === 'Kampf' ? this.calcCombatSkill(skill) : this.calcNonCombatSkill(skill)
       })
     },
-    calcNonCombatSkill(skill) {
-      // window.alert('reached calcSkill for: ' + skill.name)
+    calcNonCombatStat(stat) {
+      // window.alert('reached calcSkill for: ' + stat.name)
       // window.alert('reached milestone 0')
 
       var firstAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[0],
+        (attribute) => attribute.shortName === stat.attributes[0],
       )
       // window.alert('reached milestone 0.3')
       var secondAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[1],
+        (attribute) => attribute.shortName === stat.attributes[1],
       )
       // window.alert('reached milestone 0.6')
       var thirdAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[2],
+        (attribute) => attribute.shortName === stat.attributes[2],
       )
       // window.alert('reached milestone 1')
       if (
@@ -115,13 +137,13 @@ export const useSkillStore = defineStore('skillStore', {
         secondAttribute.increased === 0 &&
         thirdAttribute.increased === 0
       ) {
-        skill.value = Math.round(
-          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / skill.divisor,
+        stat.value = Math.round(
+          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / stat.divisor,
         )
-        skill.increased = false
+        stat.increased = false
       } else {
         var baseValue = Math.round(
-          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / skill.divisor,
+          (firstAttribute.value + secondAttribute.value + thirdAttribute.value) / stat.divisor,
         )
         var value = Math.round(
           (firstAttribute.value +
@@ -130,10 +152,10 @@ export const useSkillStore = defineStore('skillStore', {
             firstAttribute.increased +
             secondAttribute.increased +
             thirdAttribute.increased) /
-            skill.divisor,
+            stat.divisor,
         )
-        skill.value = value
-        skill.increased = value > baseValue ? true : false
+        stat.value = value
+        stat.increased = value > baseValue ? true : false
       }
     },
     calcCombatSkill(skill) {

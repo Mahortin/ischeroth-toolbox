@@ -4,7 +4,10 @@ import { useAttributeStore } from '@/stores/attributeStore'
 import SimpleSingleAttribute from '@/components/begabungsCalculator/attributeComponents/SimpleSingleAttribute.vue'
 import { useSkillStore } from '@/stores/skillStore'
 import NewSkillsView from '../begabungsCalculator/skillComponents/NewSkillsView.vue'
+import NewGrundwerteView from '../begabungsCalculator/skillComponents/NewGrundwerteView.vue'
 import FilterView from '../begabungsCalculator/skillComponents/FilterView.vue'
+
+
 
 const attributeStore = useAttributeStore()
 const skillStore = useSkillStore()
@@ -57,6 +60,7 @@ function doNothing() {
     </div>
   </div>
 
+  <NewGrundwerteView></NewGrundwerteView>
   <NewSkillsView></NewSkillsView>
   </div>
 </template>

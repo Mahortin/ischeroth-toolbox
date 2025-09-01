@@ -46,6 +46,7 @@ export const useAttributeStore = defineStore('attributeStore', {
         try {
           const data = await fetchAttributes()
           this.attributes = data
+          this.attributes.forEach((attribute) => {attribute.valueIncreased = attribute.value})
           this.loadedAt = Date.now()
         } catch (e) {
           this.error = e
@@ -73,6 +74,7 @@ export const useAttributeStore = defineStore('attributeStore', {
       this.attributes.forEach((attribute) => {
         if (attribute.id === id) {
           attribute.increased = attribute.increased === newValue ? 0 : newValue
+          attribute.valueIncreased = attribute.value + attribute.increased
           this.updateStore.updateStores(attribute.shortName)
         }
       })
@@ -86,6 +88,8 @@ export const useAttributeStore = defineStore('attributeStore', {
           attribute.value = attribute.value + adjustment
           if (attribute.value > 16 || attribute.value < 7)
             attribute.value = attribute.value > 16 ? 16 : 7
+          
+          attribute.valueIncreased = attribute.value + attribute.increased
           this.updateStore.updateStores(attribute.shortName)
         }
       })

@@ -43,6 +43,7 @@ INSERT INTO attributes (short_name, name, value, increased) VALUES
 
 -- Set skills
 INSERT INTO skills (name, value, increased, skill_group, skill_group_key, divisor, attributes) VALUES
+('Robustheit', 12, 0, 'Grundwert', 'grundwert', 3, 'St,Ko,Ko'),
 ('Dolch & Fechtwaffen', 12, 0, 'Kampf', 'kampf', 2, 'Mu,Fi,Ge'),
 ('Akrobatik', 12, 0, 'Körper', 'körper', 3, 'Mu,Ge,St'),
 ('Fährtensuche', 12, 0, 'Natur', 'natur', 3, 'Au,Ve,Ko');

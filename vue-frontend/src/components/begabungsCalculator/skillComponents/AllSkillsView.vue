@@ -3,9 +3,9 @@ import SkillsFilter from './SkillsFilter.vue'
 import CoreStatsView from './CoreStatsView.vue'
 import CombatSkillsView from './CombatSkillsView.vue'
 import SkillView from './SkillsView.vue'
-import { useSkillFilterStore } from '@/stores/skillFilterStore'
+import { useFilterStore } from '@/stores/filterStore'
 
-const store = useSkillFilterStore()
+const store = useFilterStore()
 </script>
 
 <template>

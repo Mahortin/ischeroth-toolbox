@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { useCombatSkillStore } from './combatSkillStore'
-import { useSkillFilterStore } from './skillFilterStore'
+import { useFilterStore } from './filterStore'
 import { useCoreStatsStore } from './coreStatsStore'
 
 export const useCharacterStore = defineStore('characterStore', {
   state: () => ({
     combatSkills: useCombatSkillStore(),
     coreStats: useCoreStatsStore(),
-    filter: useSkillFilterStore(),
+    filter: useFilterStore(),
     attributes: [
       { key: 'Mu', name: 'Mut', value: 12, increased: 0 },
       { key: 'Au', name: 'Aufmerksamkeit', value: 12, increased: 0 },

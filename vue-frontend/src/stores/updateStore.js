@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useSkillFilterStore } from './skillFilterStore'
+import { useFilterStore } from './filterStore'
 import { useSkillStore } from './skillStore'
 
 export const useUpdateStore = defineStore('updateStore', {
@@ -9,7 +9,7 @@ export const useUpdateStore = defineStore('updateStore', {
     // combatSkillsStore: useCombatSkillStore(),
     // coreStats: useCoreStatsStore(),
     //toDo: Implement filters
-    filter: useSkillFilterStore(),
+    filter: useFilterStore(),
   }),
 
   getters: {

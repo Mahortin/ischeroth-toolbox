@@ -1,5 +1,5 @@
 <script setup>
-import HelloWorld from './components/PageHeader.vue'
+import PageHeader from './components/PageHeader.vue'
 import { RouterView } from 'vue-router'
 </script>
 
@@ -7,7 +7,7 @@ import { RouterView } from 'vue-router'
   <header>
     <img alt="Ischeroth logo" class="logo" src="./assets/phoenix.svg" width="125" height="125" />
     <div class="wrapper">
-      <HelloWorld msg="Ischeroth Werterechner" />
+      <PageHeader msg="Ischeroth Werterechner" />
     </div>
   </header>
 

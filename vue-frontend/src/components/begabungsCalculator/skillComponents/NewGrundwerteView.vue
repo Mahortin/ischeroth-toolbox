@@ -5,7 +5,7 @@ const store = useSkillStore()
 </script>
 
 <template>
-  <div>
+  <div v-if="store.getFilteredGrundwerte.length !== 0">
     <table>
       <tr>
         <th>Name</th>

@@ -5,7 +5,7 @@ const store = useSkillStore()
 </script>
 
 <template>
-  <div>
+  <div v-if="store.getFilteredSkills.length !== 0">
     <table>
       <tr>
         <th>Talent</th>

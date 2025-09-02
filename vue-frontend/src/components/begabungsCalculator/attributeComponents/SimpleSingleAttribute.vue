@@ -19,7 +19,7 @@ const { getIncreasedValue } = storeToRefs(store)
 
 <template>
   <div class="attribute-info wrapper">
-    <span class="attribute-name item1">{{ attributeShortName }} — {{ attributeName }} — {{ increased }}</span>
+    <span class="attribute-name item1"> {{ attributeName }} ({{ attributeShortName }})</span>
     <label :class="increased > 0 ? 'highlight item2' : 'item2'">{{
       getIncreasedValue(attributeId)
     }}</label>

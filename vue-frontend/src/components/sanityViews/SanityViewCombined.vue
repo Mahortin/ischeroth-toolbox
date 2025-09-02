@@ -23,27 +23,6 @@ function doNothing() {
 </script>
 
 <template>
-  <FilterView></FilterView>
-  <div class="column">
-    <h2>Attributes from newStore</h2>
-
-  <div>
-   <h1 class="green">Attribute List</h1>
-    
-    <div v-if="attributeStore.error">
-      <p style="color: red;">Error: {{ attributeStore.error }}</p>
-    </div>
-
-    <div v-else-if="attributeStore.loading">
-      <p>Loading attributes...</p>
-    </div>
-
-    <ul v-else>
-      <li v-for="attribute in attributeStore.attributes" :key="attribute.id">
-        {{ attribute.shortName }} — {{ attribute.name }} — {{ attribute.value }} — {{ attribute.increased }} 
-      </li>
-    </ul>
-  </div>
 
   <div class="column">
     <h2>Attribute</h2>
@@ -59,10 +38,11 @@ function doNothing() {
       ></SimpleSingleAttribute>
     </div>
   </div>
-
+  <div class="column">
+  <FilterView></FilterView>
   <NewGrundwerteView></NewGrundwerteView>
   <NewSkillsView></NewSkillsView>
-  </div>
+</div>
 </template>
 
 <style scoped></style>

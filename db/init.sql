@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS product (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  price DOUBLE NOT NULL
-);
-
 -- Create attributes table
 CREATE TABLE IF NOT EXISTS attributes (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -23,11 +17,6 @@ CREATE TABLE IF NOT EXISTS skills (
   divisor INTEGER NOT NULL, 
   attributes VARCHAR(255) NOT NULL
 );
-
-INSERT INTO product (name, price) VALUES
-('Produkt A', 10.50),
-('Produkt B', 20.75),
-('Produkt C', 6.66);
 
 -- Set attributes
 INSERT INTO attributes (short_name, name, value, increased) VALUES

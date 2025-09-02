@@ -3,13 +3,13 @@ import { defineStore } from 'pinia'
 export const useFilterStore = defineStore('filterStore', {
   state: () => ({
     skillgroups: [
-      { key: 'coreStat', name: 'Grundwert' },
-      { key: 'kampf', name: 'Kampf' },
-      { key: 'körper', name: 'Körper' },
-      { key: 'gesellschaft', name: 'Gesellschaft' },
-      { key: 'natur', name: 'Natur' },
-      { key: 'wissen', name: 'Wissen' },
-      { key: 'handwerk', name: 'Handwerk' },
+      { name: 'Grundwert' },
+      { name: 'Kampf' },
+      { name: 'Körper' },
+      { name: 'Gesellschaft' },
+      { name: 'Natur' },
+      { name: 'Wissen' },
+      { name: 'Handwerk' },
     ],
     groupfilter: [],
   }),

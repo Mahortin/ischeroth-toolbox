@@ -24,8 +24,6 @@ public class Skill {
     private Boolean increased;
     @Column(name = "skill_group")
     private String group;
-    @Column(name = "skill_group_key")
-    private String groupKey;
     @Column(name = "divisor")
     private Integer divisor;
     @Column(name = "attributes")
@@ -34,7 +32,7 @@ public class Skill {
 
     public Skill() {}
 
-    public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor, String[] attributes) {
+    public Skill(String name, Integer value, Boolean increased, String group, Integer divisor, String[] attributes) {
         // public Skill(String name, Integer value, Boolean increased, String group, String groupKey, Integer divisor) {
         this.name = name;
         this.value = value;
@@ -42,7 +40,6 @@ public class Skill {
         // this.attributes = attributes;
         this.increased = increased;
         this.group = group;
-        this.groupKey = groupKey;
     }
 
     // Getter & Setter
@@ -60,9 +57,6 @@ public class Skill {
 
     public String getGroup() { return group; }
     public void setGroup(String group) { this.group = group; }
-
-    public String getGroupKey() { return groupKey; }
-    public void setGroupKey(String groupKey) { this.groupKey = groupKey; }
 
     public Integer getDivisor() { return divisor; }
     public void setDivisor(Integer divisor) { this.divisor = divisor; }

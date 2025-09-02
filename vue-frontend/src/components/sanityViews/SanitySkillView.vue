@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useSkillStore } from '@/stores/skillStore'
-import NewSkillsView from '../begabungsCalculator/skillComponents/NewSkillsView.vue'
+import NewSkillsView from '../begabungsCalculator/SkillsView.vue'
 
 const store = useSkillStore()
 

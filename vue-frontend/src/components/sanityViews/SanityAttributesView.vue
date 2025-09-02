@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
-import SimpleSingleAttribute from '@/components/begabungsCalculator/attributeComponents/SimpleSingleAttribute.vue'
+import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
 
 const store = useAttributeStore()
 

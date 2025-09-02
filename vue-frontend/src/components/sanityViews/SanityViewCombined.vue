@@ -1,11 +1,11 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
-import SimpleSingleAttribute from '@/components/begabungsCalculator/attributeComponents/SimpleSingleAttribute.vue'
+import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
 import { useSkillStore } from '@/stores/skillStore'
-import NewSkillsView from '../begabungsCalculator/skillComponents/NewSkillsView.vue'
-import NewGrundwerteView from '../begabungsCalculator/skillComponents/NewGrundwerteView.vue'
-import FilterView from '../begabungsCalculator/skillComponents/FilterView.vue'
+import NewSkillsView from '../begabungsCalculator/SkillsView.vue'
+import NewGrundwerteView from '../begabungsCalculator/GrundwerteView.vue'
+import FilterView from '../begabungsCalculator/FilterView.vue'
 
 
 

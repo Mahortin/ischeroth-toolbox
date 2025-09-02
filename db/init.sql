@@ -18,6 +18,14 @@ CREATE TABLE IF NOT EXISTS skills (
   attributes VARCHAR(255) NOT NULL
 );
 
+-- Create name table
+CREATE TABLE IF NOT EXISTS names (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  name_group VARCHAR(255) NOT NULL,
+  gender VARCHAR(255) NOT NULL
+);
+
 -- Set attributes
 INSERT INTO attributes (short_name, name, value, increased) VALUES
 ('Mu', 'Mut', 12, 0),
@@ -89,3 +97,9 @@ INSERT INTO skills (name, value, increased, skill_group, divisor, attributes) VA
 ('Magiekunde', 12, 0, 'Wissen', 3, 'Au,Ve,Ve'),
 ('Rechnen & Physik', 12, 0, 'Wissen', 3, 'Ve,Ve,Fi'),
 ('Rechts- & Staatskunst', 12, 0, 'Wissen', 3, 'Ve,Ve,Ch');
+
+INSERT INTO names (name, name_group, gender) VALUES
+('Alrik', 'DSA', 'male'),
+('Alrika', 'DSA', 'female'),
+('Damila', 'Sonnenreich', 'female'),
+('Karn', 'MtG', 'neutral');

@@ -12,10 +12,8 @@ import { RouterView } from 'vue-router'
   </header>
 
   <nav>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/sanityAttributes">Go to SanityAttributes</RouterLink>
-    <RouterLink to="/sanitySkills">Go to SanitySkills</RouterLink>
-    <RouterLink to="/sanityCombined">Go to SanityCombined</RouterLink>
+    <RouterLink to="/">Begabungsrechner</RouterLink>
+    <RouterLink to="/sanityNames">Go to SanityNames</RouterLink>
   </nav>
   <main class="splitSection">
     <RouterView />

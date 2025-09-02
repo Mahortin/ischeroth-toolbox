@@ -1,6 +1,6 @@
-package com.example.demo.model;
+package com.example.ischeroth_rest.model;
 
-import com.example.demo.converter.StringArrayConverter;
+import com.example.ischeroth_rest.converter.StringArrayConverter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

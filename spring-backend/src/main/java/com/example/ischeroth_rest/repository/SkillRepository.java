@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package com.example.ischeroth_rest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.model.Skill;
+import com.example.ischeroth_rest.model.Skill;
 
 public interface SkillRepository extends JpaRepository<Skill, Long> {}

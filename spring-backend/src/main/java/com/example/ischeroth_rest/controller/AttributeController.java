@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.ischeroth_rest.controller;
 
 import java.util.List;
 
@@ -10,34 +10,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Skill;
-import com.example.demo.repository.SkillRepository;
+import com.example.ischeroth_rest.model.Attribute;
+import com.example.ischeroth_rest.repository.AttributeRepository;
 
 @RestController
-@RequestMapping("/api/skills")
+@RequestMapping("/api/attributes")
 //for angular
 //@CrossOrigin(origins = "http://localhost:4200")
 //for vue
 @CrossOrigin(origins = "http://localhost:5173")
-public class SkillController {
-    private final SkillRepository repo;
+public class AttributeController {
+    private final AttributeRepository repo;
 
-    public SkillController(SkillRepository repo) {
+    public AttributeController(AttributeRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping
-    public List<Skill> getAll() {
+    public List<Attribute> getAll() {
         return repo.findAll();
     }
 
     @GetMapping("/{id}")
-    public Skill get(@PathVariable Long id) {
+    public Attribute get(@PathVariable Long id) {
         return repo.findById(id).orElseThrow();
     }
 
     @PostMapping
-    public Skill save(@RequestBody Skill skill) {
-        return repo.save(skill);
+    public Attribute save(@RequestBody Attribute attribute) {
+        return repo.save(attribute);
     }
 }

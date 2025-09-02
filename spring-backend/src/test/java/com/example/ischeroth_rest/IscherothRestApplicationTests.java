@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.example.ischeroth_rest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class IscherothRestApplicationTests {
 
 	@Test
 	void contextLoads() {

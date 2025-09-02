@@ -1,4 +1,4 @@
-package com.example.demo.converter;
+package com.example.ischeroth_rest.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

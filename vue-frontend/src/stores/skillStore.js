@@ -113,7 +113,7 @@ export const useSkillStore = defineStore('skillStore', {
       })
       this.skills.forEach((skill) => {
         if (!skill.attributes.includes(id)) return
-        skill.group === 'Kampf' ? this.calcCombatSkill(skill) : this.calcNonCombatSkill(skill)
+        skill.group === 'Kampf' ? this.calcCombatSkill(skill) : this.calcNonCombatStat(skill)
       })
     },
     calcNonCombatStat(stat) {

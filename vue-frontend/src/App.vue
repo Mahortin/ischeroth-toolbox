@@ -5,7 +5,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <header>
-    <img alt="Ischeroth logo" class="logo" src="./assets/phoenix.svg" width="125" height="125" />
+    <img alt="Ischeroth logo" class="logo" src="./assets/phoenix-ico-180px.svg" width="125" height="125" />
     <div class="wrapper">
       <PageHeader msg="Ischeroth Werterechner" />
     </div>

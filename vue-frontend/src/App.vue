@@ -24,7 +24,7 @@ import { RouterView } from 'vue-router'
     <img
       alt="Ischeroth ruleset logo"
       class="logo-footer"
-      src="./assets/rule-icon-colored.svg"
+      src="./assets/ruleicon-180px.svg"
       width="125"
       height="125"
     />

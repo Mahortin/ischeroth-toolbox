@@ -1,7 +1,7 @@
 <script setup>
-import { useFilterStore } from '@/stores/filterStore'
+import { useSkillFilterStore } from '@/stores/skillFilterStore'
 
-const store = useFilterStore()
+const store = useSkillFilterStore()
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useFilterStore } from './filterStore'
+import { useSkillFilterStore } from './skillFilterStore'
 import { useSkillStore } from './skillStore'
 
 export const useUpdateStore = defineStore('updateStore', {
@@ -9,7 +9,7 @@ export const useUpdateStore = defineStore('updateStore', {
     // combatSkillsStore: useCombatSkillStore(),
     // coreStats: useCoreStatsStore(),
     //toDo: Implement filters
-    filter: useFilterStore(),
+    filter: useSkillFilterStore(),
   }),
 
   getters: {
@@ -40,13 +40,6 @@ export const useUpdateStore = defineStore('updateStore', {
     },
     resetFilter() {
       this.groupfilter = []
-    },
-    addFilter(key) {
-      if (key === null) window.alert('group is null!')
-
-      !this.groupfilter.includes(key)
-        ? this.groupfilter.push(key)
-        : this.groupfilter.splice(this.groupfilter.indexOf(key))
     },
   },
 })

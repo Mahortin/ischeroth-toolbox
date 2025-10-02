@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { fetchSkills } from '@/services/skillService'
 import { useAttributeStore } from './attributeStore'
-import { useFilterStore } from './filterStore'
+import { useSkillFilterStore } from './skillFilterStore'
 
 export const useSkillStore = defineStore('skillStore', {
   state: () => ({
@@ -12,7 +12,7 @@ export const useSkillStore = defineStore('skillStore', {
     error: null,
     loadedAt: null, // Date or timestamp for caching / staleness
     _promise: null, // private: track in-flight fetch
-    filter: useFilterStore(),
+    filter: useSkillFilterStore(),
   }),
 
   getters: {

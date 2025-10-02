@@ -14,6 +14,7 @@ import { RouterView } from 'vue-router'
   <nav>
     <RouterLink to="/">Begabungsrechner</RouterLink>
     <RouterLink to="/sanityNames">Go to SanityNames</RouterLink>
+    <RouterLink to="/nameSuggestor">Go to NameSuggestor</RouterLink>
   </nav>
   <main class="splitSection">
     <RouterView />

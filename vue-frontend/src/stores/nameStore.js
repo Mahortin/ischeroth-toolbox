@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { fetchNames } from '@/services/nameService'
+import { useNameFilterStore } from './nameFilterStore'
 
 export const useNameStore = defineStore('nameStore', {
   state: () => ({
@@ -8,10 +9,21 @@ export const useNameStore = defineStore('nameStore', {
     error: null,
     loadedAt: null, // Date or timestamp for caching / staleness
     _promise: null, // private: track in-flight fetch
+    filter: useNameFilterStore(),
   }),
 
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
+    getFilteredNames: (state) => {
+      // return state.names
+
+      if (state.filter.genderFilter == 0)
+      // if (true)
+        return state.names
+      return state.names.filter((name) =>
+            state.filter.genderFilter.includes(name.gender)
+          )
+    },
   },
   actions: {
     async ensureLoaded({ force = false, ttlMs = 0 } = {}) {
@@ -49,6 +61,7 @@ export const useNameStore = defineStore('nameStore', {
     invalidate() {
       this.loadedAt = null
     },
+
     
   },
 })

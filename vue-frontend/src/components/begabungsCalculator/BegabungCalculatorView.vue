@@ -5,7 +5,7 @@ import { useSkillStore } from '@/stores/skillStore'
 import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
 import NewSkillsView from './SkillsView.vue'
 import NewGrundwerteView from './GrundwerteView.vue'
-import FilterView from './FilterView.vue'
+import FilterView from './SkillFilterView.vue'
 
 
 

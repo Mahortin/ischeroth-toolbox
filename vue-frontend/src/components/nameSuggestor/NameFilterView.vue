@@ -6,7 +6,7 @@ const store = useNameFilterStore()
 
 <template>
   <div>filterView</div>
-  <div>
+  <!-- <div>
     <div class="filter-buttons" v-for="gender in store.genders" :key="gender.name" >
       <button
         :class="store.genderFilter.includes(gender.englishName) ? 'highlight' : ''"
@@ -15,7 +15,19 @@ const store = useNameFilterStore()
         {{ gender.name }}
       </button>
     </div>
-    <button @click="store.resetFilter()">Reset</button>
+    <button @click="store.resetGenderFilter()">Reset</button>
+  </div> -->
+
+  <div>
+    <div class="filter-buttons" v-for="species in store.species" :key="species.name" >
+      <button
+        :class="store.speciesFilter.includes(species.name) ? 'highlight' : ''"
+        @click="store.addSpeciesFilter(species.name)"
+      >
+        {{ species.name }}
+      </button>
+    </div>
+    <button @click="store.resetSpeciesFilter()">Reset</button>
   </div>
 </template>
 

@@ -27,7 +27,7 @@ onMounted(() => {
 
       <ul v-else>
         <li v-for="name in store.getFilteredNames" :key="name.name">
-          {{ name.name }} ({{ name.gender }})
+          {{ name.name }} ({{ name.gender }}, {{ name.group }})
         </li>
         <div class="row">
           <div class="custom-column">
@@ -39,7 +39,7 @@ onMounted(() => {
           </div>
           <div class="custom-column">
             <img alt="Ischeroth logo" class="logo" src="../../assets/gender-female.svg" width="75" height="75" />
-            <h2>Female</h2>75
+            <h2>Female</h2>
             <li v-for="name in store.getFilteredFemaleNames" :key="name.name">
               {{ name.name }} 
             </li>

@@ -18,8 +18,11 @@ export const useNameFilterStore = defineStore('nameFilterStore', {
 
   getters: {},
   actions: {
-    resetFilter() {
+    resetGenderFilter() {
       this.genderFilter = []
+    },
+    resetSpeciesFilter() {
+      this.speciesFilter = []
     },
     addGenderFilter(gender) {
       if (gender === null) window.alert('group is null!')

@@ -18,11 +18,30 @@ export const useNameStore = defineStore('nameStore', {
       // return state.names
 
       if (state.filter.genderFilter == 0)
-      // if (true)
+        // if (true)
         return state.names
-      return state.names.filter((name) =>
-            state.filter.genderFilter.includes(name.gender)
-          )
+      return state.names.filter((name) => state.filter.genderFilter.includes(name.gender))
+    },
+    getFilteredDiverseNames: (state) => {
+      if (state.filter.speciesFilter == 0)
+        return state.names.filter((name) => name.gender === 'neutral')
+      return state.names.filter(
+        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'neutral',
+      )
+    },
+    getFilteredFemaleNames: (state) => {
+      if (state.filter.speciesFilter == 0)
+        return state.names.filter((name) => name.gender === 'female')
+      return state.names.filter(
+        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'female',
+      )
+    },
+    getFilteredMaleNames: (state) => {
+      if (state.filter.speciesFilter == 0)
+        return state.names.filter((name) => name.gender === 'male')
+      return state.names.filter(
+        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'male',
+      )
     },
   },
   actions: {
@@ -61,7 +80,5 @@ export const useNameStore = defineStore('nameStore', {
     invalidate() {
       this.loadedAt = null
     },
-
-    
   },
 })

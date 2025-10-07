@@ -10,7 +10,7 @@ const store = useNameFilterStore()
     <div class="filter-buttons" v-for="gender in store.genders" :key="gender.name" >
       <button
         :class="store.genderFilter.includes(gender.englishName) ? 'highlight' : ''"
-        @click="store.addFilter(gender.englishName)"
+        @click="store.addGenderFilter(gender.englishName)"
       >
         {{ gender.name }}
       </button>

@@ -13,6 +13,7 @@ export const useNameFilterStore = defineStore('nameFilterStore', {
       { name: 'Zwerg' },
     ],
     genderFilter: [],
+    speciesFilter: [],
   }),
 
   getters: {},
@@ -20,12 +21,19 @@ export const useNameFilterStore = defineStore('nameFilterStore', {
     resetFilter() {
       this.genderFilter = []
     },
-    addFilter(criteria) {
-      if (criteria === null) window.alert('group is null!')
+    addGenderFilter(gender) {
+      if (gender === null) window.alert('group is null!')
 
-      !this.genderFilter.includes(criteria)
-        ? this.genderFilter.push(criteria)
-        : this.genderFilter.splice(this.genderFilter.indexOf(criteria), 1)
+      !this.genderFilter.includes(gender)
+        ? this.genderFilter.push(gender)
+        : this.genderFilter.splice(this.genderFilter.indexOf(gender), 1)
+    },
+    addSpeciesFilter(species) {
+      if (species === null) window.alert('species is null!')
+
+      !this.speciesFilter.includes(species)
+        ? this.speciesFilter.push(species)
+        : this.speciesFilter.splice(this.speciesFilter.indexOf(species), 1)
     },
   },
 })

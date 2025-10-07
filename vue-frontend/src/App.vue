@@ -12,9 +12,9 @@ import { RouterView } from 'vue-router'
   </header>
 
   <nav>
-    <RouterLink to="/">Begabungsrechner</RouterLink>
-    <RouterLink to="/sanityNames">Go to SanityNames</RouterLink>
-    <RouterLink to="/nameSuggestor">Go to NameSuggestor</RouterLink>
+    <RouterLink class="routerlink" to="/">Begabungsrechner</RouterLink>
+    <RouterLink class="routerlink" to="/sanityNames">Go to SanityNames</RouterLink>
+    <RouterLink class="routerlink" to="/nameSuggestor">NameSuggestor</RouterLink>
   </nav>
   <main class="splitSection">
     <RouterView />
@@ -38,6 +38,12 @@ import { RouterView } from 'vue-router'
 header {
   line-height: 1.5;
   background-color: #00261f;
+}
+
+.routerlink {
+  padding: 5px 5px;
+  border: none;
+  font-size: 16px;
 }
 
 .logo {

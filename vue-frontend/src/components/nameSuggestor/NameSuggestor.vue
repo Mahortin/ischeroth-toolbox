@@ -71,6 +71,7 @@ onMounted(() => {
   float: left;
   width: 25%;
   padding: 10px;
+  margin: 10px
 }
 
 /* Clear floats after the columns */

@@ -12,6 +12,7 @@ export const useNameFilterStore = defineStore('nameFilterStore', {
       { name: 'Elf', englishName: 'elf' },
       { name: 'Zwerg', englishName: 'dwarf' },
       { name: 'Felida', englishName: 'felida' },
+      { name: 'Charaki', englishName: 'charaki' },
     ],
     genderFilter: [],
     speciesFilter: [],

@@ -13,8 +13,8 @@ import { RouterView } from 'vue-router'
 
   <nav>
     <RouterLink class="routerlink" to="/">Begabungsrechner</RouterLink>
-    <RouterLink class="routerlink" to="/sanityNames">Go to SanityNames</RouterLink>
-    <RouterLink class="routerlink" to="/nameSuggestor">NameSuggestor</RouterLink>
+    <!-- <RouterLink class="routerlink" to="/sanityNames">Go to SanityNames</RouterLink> -->
+    <RouterLink class="routerlink" to="/nameSuggestor">Namen Vorschläge</RouterLink>
   </nav>
   <main class="splitSection">
     <RouterView />

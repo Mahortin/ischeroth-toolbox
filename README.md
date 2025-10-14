@@ -53,8 +53,8 @@ when adjusting spring-backend code; verify:
 
 ### tmp db stuff
 
-mariadb --user=shopuser --password=shoppass shop
-mariadb -u shopuser -pshoppass
+mariadb --user=<yourUser> --password=<yourPassword> <database>
+mariadb -u <yourUser> -p<yourPassword>
 
-mariadb -u shopuser -pshoppass -e 'show databases'
-mariadb -u shopuser -pshoppass -e 'select * from product' shop
+mariadb -u <yourUser> -p<yourPassword> -e 'show databases'
+mariadb -u <yourUser> -p<yourPassword> -e 'select * from <table>' <database>

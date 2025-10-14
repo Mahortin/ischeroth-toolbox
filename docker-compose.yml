@@ -8,11 +8,13 @@ services:
       interval: 10s
       retries: 5
       start_period: 10s
+    env_file:
+      - .env
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: shop
-      MYSQL_USER: shopuser
-      MYSQL_PASSWORD: shoppass
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -28,28 +30,20 @@ services:
       depends_on:
         mariadb:
           condition: service_healthy
+      env_file:
+        - .env
       environment:
-        SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/shop
-        SPRING_DATASOURCE_USERNAME: shopuser
-        SPRING_DATASOURCE_PASSWORD: shoppass
-        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MariaDBDialect
+        SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE}
+        SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
+        SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
+        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ${DIALECT}
 
-  # deployment setup
-  # frontend:
-  #     build:
-  #       context: ./vue-frontend
-  #       # for development
-  #       dockerfile: Dockerfile.dev  
-  #       # for deployment
-  #       # dockerfile: Dockerfile  
-  #     ports:
-  #       - "5173:5173"
-  
   # dev setup
   frontend:
     build:
       context: ./vue-frontend
-      dockerfile: Dockerfile.dev
+      # dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     volumes:

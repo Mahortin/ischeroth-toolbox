@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
-import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
+import SingleAttributeView from '@/components/begabungsCalculator/SingleAttributeView.vue'
 
 const store = useAttributeStore()
 
@@ -39,7 +39,7 @@ function doNothing() {
   <div class="column">
     <h2>Attribute</h2>
     <div v-for="attribute in store.attributes" :key="attribute.id" :value="attribute.value">
-      <SimpleSingleAttribute
+      <SingleAttributeView
         :key="attribute.id"
         :attributeId="attribute.id"
         :attributeShortName="attribute.shortName"
@@ -47,7 +47,7 @@ function doNothing() {
         :attributeValue="attribute.value"
         :increased="attribute.increased"
         @attribute-changed="doNothing"
-      ></SimpleSingleAttribute>
+      ></SingleAttributeView>
     </div>
   </div>
 

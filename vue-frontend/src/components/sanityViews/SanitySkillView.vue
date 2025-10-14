@@ -1,16 +1,13 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useSkillStore } from '@/stores/skillStore'
-import NewSkillsView from '../begabungsCalculator/SkillsView.vue'
+import SkillsView from '../begabungsCalculator/SkillsView.vue'
 
 const store = useSkillStore()
 
 onMounted(() => {
   store.ensureLoaded().catch(() => {}) // optional: swallow to avoid console noise
 })
-// function doNothing() {
-//   window.confirm(store)
-// }
 </script>
 
 <template>
@@ -37,7 +34,7 @@ onMounted(() => {
     <div>TEST2</div>
   </div>
   
-  <NewSkillsView></NewSkillsView>
+  <SkillsView></SkillsView>
 
   </div>
 </template>

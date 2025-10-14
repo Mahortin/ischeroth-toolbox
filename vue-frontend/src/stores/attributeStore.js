@@ -94,22 +94,5 @@ export const useAttributeStore = defineStore('attributeStore', {
         }
       })
     },
-
-    // async addTodo(payload) {
-    //   // optional: optimistic update
-    //   const temp = { id: `temp_${Math.random()}`, ...payload };
-    //   this.attributes.unshift(temp);
-    //   try {
-    //     const created = await createTodo(payload);
-    //     // replace temp with real
-    //     const idx = this.attributes.findIndex(t => t.id === temp.id);
-    //     if (idx !== -1) this.attributes[idx] = created;
-    //   } catch (e) {
-    //     // rollback
-    //     this.attributes = this.attributes.filter(t => t.id !== temp.id);
-    //     this.error = e;
-    //     throw e;
-    //   }
-    // },
   },
 })

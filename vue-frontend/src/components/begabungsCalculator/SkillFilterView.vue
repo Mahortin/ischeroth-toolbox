@@ -39,11 +39,8 @@ button {
 }
 
 .highlight {
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  /* background-color: #93d800; 
-  color: #422002;  */
   color: #93d800;
   font-weight: bold;
   transition:

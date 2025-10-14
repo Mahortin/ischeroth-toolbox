@@ -5,18 +5,6 @@ const store = useNameFilterStore()
 </script>
 
 <template>
-  <!-- <div>
-    <div class="filter-buttons" v-for="gender in store.genders" :key="gender.name" >
-      <button
-        :class="store.genderFilter.includes(gender.englishName) ? 'highlight' : ''"
-        @click="store.addGenderFilter(gender.englishName)"
-      >
-        {{ gender.name }}
-      </button>
-    </div>
-    <button @click="store.resetGenderFilter()">Reset</button>
-  </div> -->
-
   <div>
     <div class="filter-buttons" v-for="species in store.species" :key="species.name" >
       <button
@@ -45,11 +33,8 @@ button {
 }
 
 .highlight {
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  /* background-color: #93d800; 
-  color: #422002;  */
   color: #93d800;
   font-weight: bold;
   transition:

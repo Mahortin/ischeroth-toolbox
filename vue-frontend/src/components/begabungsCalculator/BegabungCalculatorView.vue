@@ -2,9 +2,9 @@
 import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
 import { useSkillStore } from '@/stores/skillStore'
-import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
-import NewSkillsView from './SkillsView.vue'
-import NewGrundwerteView from './GrundwerteView.vue'
+import SingleAttributeView from '@/components/begabungsCalculator/SingleAttributeView.vue'
+import SkillsView from './SkillsView.vue'
+import GrundwerteView from './GrundwerteView.vue'
 import FilterView from './SkillFilterView.vue'
 
 
@@ -27,7 +27,7 @@ function doNothing() {
   <div class="column">
     <h2>Attribute</h2>
     <div v-for="attribute in attributeStore.attributes" :key="attribute.id" :value="attribute.value">
-      <SimpleSingleAttribute
+      <SingleAttributeView
         :key="attribute.id"
         :attributeId="attribute.id"
         :attributeShortName="attribute.shortName"
@@ -35,13 +35,13 @@ function doNothing() {
         :attributeValue="attribute.value"
         :increased="attribute.increased"
         @attribute-changed="doNothing"
-      ></SimpleSingleAttribute>
+      ></SingleAttributeView>
     </div>
   </div>
   <div class="column">
   <FilterView></FilterView>
-  <NewGrundwerteView></NewGrundwerteView>
-  <NewSkillsView></NewSkillsView>
+  <GrundwerteView></GrundwerteView>
+  <SkillsView></SkillsView>
 </div>
 </template>
 

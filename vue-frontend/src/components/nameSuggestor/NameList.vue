@@ -27,11 +27,6 @@ onMounted(() => {
       ></SimpleSingleAttribute>
     </div>
   </div>
-  <div class="column">
-  <FilterView></FilterView>
-  <NewGrundwerteView></NewGrundwerteView>
-  <NewSkillsView></NewSkillsView>
-</div>
 </template>
 
 <style scoped></style>

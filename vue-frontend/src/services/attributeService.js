@@ -1,8 +1,6 @@
-  // src/services/attributeService.js
 export async function fetchAttributes() {
   // keep this if you use a Vite proxy. Otherwise use 'http://localhost:8080/api/attributes'
   const url = '/api/attributes'; 
-  // const url = 'http://localhost:8080/api/attributes';
   try {
     const res = await fetch(url, {
       // If you are NOT using cookies/auth, keep credentials: 'omit'

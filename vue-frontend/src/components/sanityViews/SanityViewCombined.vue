@@ -3,8 +3,8 @@ import { onMounted } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
 import SimpleSingleAttribute from '@/components/begabungsCalculator/SingleAttributeView.vue'
 import { useSkillStore } from '@/stores/skillStore'
-import NewSkillsView from '../begabungsCalculator/SkillsView.vue'
-import NewGrundwerteView from '../begabungsCalculator/GrundwerteView.vue'
+import SkillsView from '../begabungsCalculator/SkillsView.vue'
+import GrundwerteView from '../begabungsCalculator/GrundwerteView.vue'
 import FilterView from '../begabungsCalculator/SkillFilterView.vue'
 
 
@@ -40,8 +40,8 @@ function doNothing() {
   </div>
   <div class="column">
   <FilterView></FilterView>
-  <NewGrundwerteView></NewGrundwerteView>
-  <NewSkillsView></NewSkillsView>
+  <GrundwerteView></GrundwerteView>
+  <SkillsView></SkillsView>
 </div>
 </template>
 

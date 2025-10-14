@@ -12,7 +12,6 @@ defineProps({
 
 const store = useAttributeStore()
 const { getIncreasedValue } = storeToRefs(store)
-
 </script>
 
 <template>
@@ -21,7 +20,7 @@ const { getIncreasedValue } = storeToRefs(store)
     <label :class="increased > 0 ? 'highlight item2' : 'item2'">{{
       getIncreasedValue(attributeId)
     }}</label>
-        <div class="item3">
+    <div class="item3">
       <button class="adjust-attribute add" @click="store.adjusteBaseValue(attributeId, 1)">
         +1
       </button>
@@ -35,7 +34,7 @@ const { getIncreasedValue } = storeToRefs(store)
         -4
       </button>
     </div>
-   
+
     <div>
       <button
         :class="increased === 1 ? 'increase highlight item4' : 'increase item4'"

@@ -1,12 +1,12 @@
 <script setup>
-import { useNameFilterStore } from '@/stores/nameFilterStore';
+import { useNameFilterStore } from '@/stores/nameFilterStore'
 
 const store = useNameFilterStore()
 </script>
 
 <template>
   <div>
-    <div class="filter-buttons" v-for="species in store.species" :key="species.name" >
+    <div class="filter-buttons" v-for="species in store.species" :key="species.name">
       <button
         :class="store.speciesFilter.includes(species.englishName) ? 'highlight' : ''"
         @click="store.addSpeciesFilter(species.englishName)"

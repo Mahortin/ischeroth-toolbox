@@ -18,26 +18,24 @@ export const useSkillStore = defineStore('skillStore', {
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
     getFilteredSkills: (state) => {
-      if (state.filter.groupfilter.length === 0)
-        return state.skills
+      if (state.filter.groupfilter.length === 0) return state.skills
       return state.skills.filter((skill) =>
-            !state.filter.groupfilter.includes('increased')
-              ? state.filter.groupfilter.includes(skill.group)
-              : state.filter.groupfilter.length === 1
-                ? skill.increased
-                : skill.increased && state.filter.groupfilter.includes(skill.group),
-          )
+        !state.filter.groupfilter.includes('increased')
+          ? state.filter.groupfilter.includes(skill.group)
+          : state.filter.groupfilter.length === 1
+            ? skill.increased
+            : skill.increased && state.filter.groupfilter.includes(skill.group),
+      )
     },
     getFilteredGrundwerte: (state) => {
-      if (state.filter.groupfilter.length === 0)
-        return state.grundwerte
+      if (state.filter.groupfilter.length === 0) return state.grundwerte
       return state.grundwerte.filter((grundwert) =>
-            !state.filter.groupfilter.includes('increased')
-              ? state.filter.groupfilter.includes(grundwert.group)
-              : state.filter.groupfilter.length === 1
-                ? grundwert.increased
-                : grundwert.increased && state.filter.groupfilter.includes(grundwert.group),
-          )
+        !state.filter.groupfilter.includes('increased')
+          ? state.filter.groupfilter.includes(grundwert.group)
+          : state.filter.groupfilter.length === 1
+            ? grundwert.increased
+            : grundwert.increased && state.filter.groupfilter.includes(grundwert.group),
+      )
     },
   },
   actions: {
@@ -56,8 +54,8 @@ export const useSkillStore = defineStore('skillStore', {
       this._promise = (async () => {
         try {
           const data = await fetchSkills()
-          this.skills = data.filter((entry) => entry.group !== "Grundwert")
-          this.grundwerte = data.filter((entry) => entry.group === "Grundwert")
+          this.skills = data.filter((entry) => entry.group !== 'Grundwert')
+          this.grundwerte = data.filter((entry) => entry.group === 'Grundwert')
           this.loadedAt = Date.now()
         } catch (e) {
           this.error = e

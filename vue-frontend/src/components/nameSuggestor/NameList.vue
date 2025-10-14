@@ -2,17 +2,14 @@
 import { onMounted } from 'vue'
 import { useNameStore } from '@/stores/nameStore'
 
-
-
 const store = useNameStore()
 
 onMounted(() => {
-  store.ensureLoaded().catch(() => {}) 
+  store.ensureLoaded().catch(() => {})
 })
 </script>
 
 <template>
-
   <div class="column">
     <h2>Names</h2>
     <div v-for="name in store.name" :key="name.id" :value="name.value">

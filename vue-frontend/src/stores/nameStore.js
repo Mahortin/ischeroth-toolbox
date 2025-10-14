@@ -15,9 +15,7 @@ export const useNameStore = defineStore('nameStore', {
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
     getFilteredNames: (state) => {
-
-      if (state.filter.genderFilter == 0)
-        return state.names
+      if (state.filter.genderFilter == 0) return state.names
       return state.names.filter((name) => state.filter.genderFilter.includes(name.gender))
     },
     getFilteredDiverseNames: (state) => {

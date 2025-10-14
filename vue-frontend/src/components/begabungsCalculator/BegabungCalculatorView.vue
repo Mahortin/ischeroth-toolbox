@@ -7,15 +7,12 @@ import SkillsView from './SkillsView.vue'
 import GrundwerteView from './GrundwerteView.vue'
 import FilterView from './SkillFilterView.vue'
 
-
-
 const attributeStore = useAttributeStore()
 const skillStore = useSkillStore()
 
 onMounted(() => {
-  attributeStore.ensureLoaded().catch(() => {}) 
-  skillStore.ensureLoaded().catch(() => {}) 
-  
+  attributeStore.ensureLoaded().catch(() => {})
+  skillStore.ensureLoaded().catch(() => {})
 })
 function doNothing() {
   window.confirm(attributeStore)
@@ -23,10 +20,13 @@ function doNothing() {
 </script>
 
 <template>
-
   <div class="column">
     <h2>Attribute</h2>
-    <div v-for="attribute in attributeStore.attributes" :key="attribute.id" :value="attribute.value">
+    <div
+      v-for="attribute in attributeStore.attributes"
+      :key="attribute.id"
+      :value="attribute.value"
+    >
       <SingleAttributeView
         :key="attribute.id"
         :attributeId="attribute.id"
@@ -39,10 +39,10 @@ function doNothing() {
     </div>
   </div>
   <div class="column">
-  <FilterView></FilterView>
-  <GrundwerteView></GrundwerteView>
-  <SkillsView></SkillsView>
-</div>
+    <FilterView></FilterView>
+    <GrundwerteView></GrundwerteView>
+    <SkillsView></SkillsView>
+  </div>
 </template>
 
 <style scoped></style>

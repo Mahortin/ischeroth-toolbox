@@ -8,11 +8,10 @@ export const useUpdateStore = defineStore('updateStore', {
     filter: useSkillFilterStore(),
   }),
 
-  getters: {
-  },
+  getters: {},
   actions: {
     updateStores(shortName) {
-      this.skillStore.calcUpdatedSkills(shortName);
+      this.skillStore.calcUpdatedSkills(shortName)
       return shortName
     },
     resetFilter() {

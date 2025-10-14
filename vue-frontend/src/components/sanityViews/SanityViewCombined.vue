@@ -7,15 +7,12 @@ import SkillsView from '../begabungsCalculator/SkillsView.vue'
 import GrundwerteView from '../begabungsCalculator/GrundwerteView.vue'
 import FilterView from '../begabungsCalculator/SkillFilterView.vue'
 
-
-
 const attributeStore = useAttributeStore()
 const skillStore = useSkillStore()
 
 onMounted(() => {
-  attributeStore.ensureLoaded().catch(() => {}) 
-  skillStore.ensureLoaded().catch(() => {}) 
-  
+  attributeStore.ensureLoaded().catch(() => {})
+  skillStore.ensureLoaded().catch(() => {})
 })
 function doNothing() {
   window.confirm(attributeStore)
@@ -23,10 +20,13 @@ function doNothing() {
 </script>
 
 <template>
-
   <div class="column">
     <h2>Attribute</h2>
-    <div v-for="attribute in attributeStore.attributes" :key="attribute.id" :value="attribute.value">
+    <div
+      v-for="attribute in attributeStore.attributes"
+      :key="attribute.id"
+      :value="attribute.value"
+    >
       <SimpleSingleAttribute
         :key="attribute.id"
         :attributeId="attribute.id"
@@ -39,10 +39,10 @@ function doNothing() {
     </div>
   </div>
   <div class="column">
-  <FilterView></FilterView>
-  <GrundwerteView></GrundwerteView>
-  <SkillsView></SkillsView>
-</div>
+    <FilterView></FilterView>
+    <GrundwerteView></GrundwerteView>
+    <SkillsView></SkillsView>
+  </div>
 </template>
 
 <style scoped></style>

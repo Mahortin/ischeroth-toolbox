@@ -1,9 +1,11 @@
 FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 WORKDIR /app
 
-COPY . .
-RUN chmod +x mvnw
-RUN ./mvnw -DskipTests package
+COPY pom.xml ./
+RUN mvn -q -DskipTests dependency:go-offline || true
+
+COPY src ./src
+RUN mvn -DskipTests package
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app

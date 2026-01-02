@@ -18,7 +18,7 @@ import com.example.ischeroth_rest.repository.AttributeRepository;
 //for angular
 //@CrossOrigin(origins = "http://localhost:4200")
 //for vue
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://makofu.de"})
 public class AttributeController {
     private final AttributeRepository repo;
 

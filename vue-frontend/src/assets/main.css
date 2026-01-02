@@ -10,9 +10,16 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: #00d8b1;
   transition: 0.4s;
   padding: 3px;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: #00261f;
+  color: #00d8b1;
 }
 
 @media (hover: hover) {
@@ -28,8 +35,13 @@ a,
   }
 
   #app {
-    display: grid;
+    display: block;
     grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+  .splitSection {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     padding: 0 2rem;
   }
 }

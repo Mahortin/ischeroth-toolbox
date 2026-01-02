@@ -38,3 +38,4 @@ target/
 
 # own custom
 /backup
+/vue-frontend-backup

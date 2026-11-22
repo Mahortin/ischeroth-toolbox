@@ -1,69 +1,37 @@
-# version: "3.9"
 services:
   mariadb:
     image: mariadb:11.3
-    container_name: mariadb
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s
       retries: 5
       start_period: 10s
-    env_file:
-      - .env
     environment:
-      MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: ischeroth_infos
-      MARIADB_USER: ${DATABASE_USER}
-      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
-    # ports only locally reachable
-    # ports:
-    #   - "127.0.0.1:3306:3306"
+      MARIADB_USER: ${DATABASE_USER:?Set DATABASE_USER}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-root}
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - db_data:/var/lib/mysql
 
   backend:
-      build:
-        context: ./spring-backend
-        dockerfile: Dockerfile
-      # ports only locally reachable
-      ports:
-        - "127.0.0.1:8082:8080"
-      depends_on:
-        mariadb:
-          condition: service_healthy
-      env_file:
-        - .env
-      environment:
-        SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE}
-        SPRING_DATASOURCE_USERNAME: ${DATABASE_USER}
-        SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
-        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ${DIALECT}
+    build:
+      context: ./spring-backend
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE:-jdbc:mariadb://mariadb:3306/ischeroth_infos}
+      SPRING_DATASOURCE_USERNAME: ${DATABASE_USER:?Set DATABASE_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ${DIALECT:-org.hibernate.dialect.MariaDBDialect}
 
-  # productive setup
   frontend:
     build:
       context: ./vue-frontend
-      dockerfile: Dockerfile
-    ports:
-      - "127.0.0.1:8081:80"
-    restart: unless-stopped
-
-  # dev setup
-  # frontend:
-  #   build:
-  #     context: ./vue-frontend
-  #     dockerfile: Dockerfile.dev
-  #     # dockerfile: Dockerfile
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./vue-frontend:/app:delegated      # mount your code
-  #     - /app/node_modules                  # keep container deps from being shadowed
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true           # needed on some hosts/VMs
-  #   command: npm run dev -- --host 0.0.0.0 # make Vite reachable from outside
-
+    depends_on:
+      - backend
 
 volumes:
   db_data:

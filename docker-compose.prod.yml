@@ -1,0 +1,13 @@
+services:
+  mariadb:
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:?Set DATABASE_ROOT_PASSWORD in the server .env}
+
+  backend:
+    ports:
+      - "127.0.0.1:8082:8080"
+
+  frontend:
+    ports:
+      - "127.0.0.1:8081:80"
+    restart: unless-stopped

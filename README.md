@@ -1,6 +1,6 @@
 # Ischeroth Toolbox
 
-The app runs Vue, Spring Boot, and MariaDB with Docker Compose.
+The app runs Vue, Spring Boot, and MariaDB with Docker Compose. See [Compose file reference](COMPOSE.md) for the files to edit for each environment.
 
 ## Local development
 
@@ -26,19 +26,17 @@ In VS Code, open a new terminal in the WSL distro and run `docker compose versio
 
 On the server, keep `DATABASE_USER`, `DATABASE_PASSWORD`, and `DATABASE_ROOT_PASSWORD` in the existing ignored `.env` file. The datasource defaults to `jdbc:mariadb://mariadb:3306/ischeroth_infos`. An existing `SPRING_DATASOURCE` or `DIALECT` setting still takes precedence. MariaDB applies initialization credentials and SQL when it creates a new database volume.
 
-From the existing server checkout directory, using the same Compose project name as before, run:
+The webserver deploys from `main`. When you are ready to release, run this from the existing server checkout:
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+git switch main &&
+git pull --ff-only origin main &&
+docker compose -p ischeroth-toolbox \
+  -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
-Keeping the existing project name reuses its database volume. The frontend is served on `127.0.0.1:8081` and its Nginx container proxies `/api/` to Spring Boot. The backend also listens on `127.0.0.1:8082` for the existing host reverse proxy.
+If your server uses a different Compose project name, substitute it for `ischeroth-toolbox` to reuse the existing database volume. The frontend is served on `127.0.0.1:8081` and its Nginx container proxies `/api/` to Spring Boot. The backend also listens on `127.0.0.1:8082` for the existing host reverse proxy.
 
 ## Branch workflow
 
-Develop on branches based on `main` and merge completed changes back there. Both Compose configurations live in `main`. To select a tested `main` commit for deployment, fast-forward the local deployment branch:
-
-```bash
-git switch deploy-app
-git merge --ff-only main
-```
+Create short-lived branches from `main` for changes. Review and test them before merging back into `main`. Deploy from `main` when you are ready to update the webserver.

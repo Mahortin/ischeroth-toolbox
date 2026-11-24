@@ -13,14 +13,14 @@ import { RouterView } from 'vue-router'
       height="125"
     />
     <div class="wrapper">
-      <PageHeader msg="Ischeroth Werterechner" />
+      <PageHeader msg="Ischeroth Toolbox" />
     </div>
   </header>
 
   <nav>
     <RouterLink class="routerlink" to="/">Begabungsrechner</RouterLink>
-    <!-- <RouterLink class="routerlink" to="/sanityNames">Go to SanityNames</RouterLink> -->
-    <RouterLink class="routerlink" to="/nameSuggestor">Namen Vorschläge</RouterLink>
+    <RouterLink class="routerlink" to="/nameSuggestor">Namensvorschläge</RouterLink>
+    <RouterLink class="routerlink" to="/quellen">Quellen</RouterLink>
   </nav>
   <main class="splitSection">
     <RouterView />
@@ -47,9 +47,15 @@ header {
 }
 
 .routerlink {
+  display: inline-block;
   padding: 5px 5px;
   border: none;
   font-size: 16px;
+}
+
+.routerlink[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .logo {

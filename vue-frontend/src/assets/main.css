@@ -1,5 +1,9 @@
 @import './base.css';
 
+html:has(.name-filters) {
+  scrollbar-gutter: stable;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -32,6 +36,10 @@ footer {
   body {
     display: flex;
     place-items: center;
+  }
+
+  body:has(.name-filters) {
+    display: block;
   }
 
   #app {

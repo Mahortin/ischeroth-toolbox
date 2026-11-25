@@ -16,21 +16,21 @@ onMounted(() => {
         <img src="../../assets/gender-transgender.svg" alt="" width="75" height="75" />
         <h2 id="diverse-names">Diverse</h2>
         <ul>
-          <li v-for="name in store.getFilteredDiverseNames" :key="name.name">{{ name.name }}</li>
+          <li v-for="name in store.getFilteredDiverseNames" :key="name.id">{{ name.name }}</li>
         </ul>
       </section>
       <section aria-labelledby="female-names">
         <img src="../../assets/gender-female.svg" alt="" width="75" height="75" />
         <h2 id="female-names">Female</h2>
         <ul>
-          <li v-for="name in store.getFilteredFemaleNames" :key="name.name">{{ name.name }}</li>
+          <li v-for="name in store.getFilteredFemaleNames" :key="name.id">{{ name.name }}</li>
         </ul>
       </section>
       <section aria-labelledby="male-names">
         <img src="../../assets/gender-male.svg" alt="" width="75" height="75" />
         <h2 id="male-names">Male</h2>
         <ul>
-          <li v-for="name in store.getFilteredMaleNames" :key="name.name">{{ name.name }}</li>
+          <li v-for="name in store.getFilteredMaleNames" :key="name.id">{{ name.name }}</li>
         </ul>
       </section>
     </div>

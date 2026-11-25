@@ -13,10 +13,8 @@ import { artists } from './artworkCredits.js'
 
 <style scoped>
 .sources {
-  grid-column: 1 / -1;
   width: min(100%, 44rem);
   margin-inline: auto;
-  padding-block: 1.25rem 2rem;
 }
 
 h2 {

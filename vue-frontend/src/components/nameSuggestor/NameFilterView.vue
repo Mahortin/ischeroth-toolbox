@@ -5,7 +5,7 @@ const store = useNameFilterStore()
 </script>
 
 <template>
-  <div class="name-filters filter-controls">
+  <div class="filter-controls">
     <div class="filter-option" v-for="species in store.species" :key="species.englishName">
       <button
         type="button"

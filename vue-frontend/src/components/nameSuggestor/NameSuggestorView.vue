@@ -4,8 +4,8 @@ import FilterView from './NameFilterView.vue'
 </script>
 
 <template>
-  <FilterView></FilterView>
-  <NameSuggestor></NameSuggestor>
+  <div class="split-section">
+    <FilterView />
+    <NameSuggestor />
+  </div>
 </template>
-
-<style scoped></style>

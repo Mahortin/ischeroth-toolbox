@@ -17,12 +17,12 @@ import { RouterView } from 'vue-router'
     </div>
   </header>
 
-  <nav>
+  <nav aria-label="Hauptnavigation">
     <RouterLink class="routerlink" to="/">Begabungsrechner</RouterLink>
     <RouterLink class="routerlink" to="/nameSuggestor">Namensvorschläge</RouterLink>
     <RouterLink class="routerlink" to="/quellen">Quellen</RouterLink>
   </nav>
-  <main class="splitSection">
+  <main class="page-content">
     <RouterView />
   </main>
   <footer>
@@ -44,6 +44,11 @@ import { RouterView } from 'vue-router'
 header {
   line-height: 1.5;
   background-color: #00261f;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .routerlink {

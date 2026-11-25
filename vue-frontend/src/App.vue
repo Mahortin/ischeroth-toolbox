@@ -12,9 +12,7 @@ import { RouterView } from 'vue-router'
       width="125"
       height="125"
     />
-    <div class="wrapper">
-      <PageHeader msg="Ischeroth Toolbox" />
-    </div>
+    <PageHeader msg="Ischeroth Toolbox" />
   </header>
 
   <nav aria-label="Hauptnavigation">
@@ -42,7 +40,10 @@ import { RouterView } from 'vue-router'
 
 <style scoped>
 header {
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 3vw, 2rem);
   background-color: #00261f;
 }
 
@@ -65,7 +66,9 @@ nav {
 
 .logo {
   display: block;
-  margin: 0 auto 2rem;
+  width: clamp(3.5rem, 15vw, 125px);
+  height: auto;
+  flex-shrink: 0;
 }
 
 .logo-footer {
@@ -74,23 +77,4 @@ nav {
   margin: 1rem auto 1rem;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-    color: white;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: center;
-    flex-wrap: wrap;
-  }
-}
 </style>

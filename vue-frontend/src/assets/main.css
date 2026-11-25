@@ -4,6 +4,23 @@ html:has(.name-filters) {
   scrollbar-gutter: stable;
 }
 
+.filter-controls .filter-option {
+  display: inline-block;
+}
+
+.filter-controls button {
+  padding: 5px;
+  margin: 3px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.filter-controls button[aria-pressed='true'] {
+  background-color: #93d800;
+  color: #422002;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;

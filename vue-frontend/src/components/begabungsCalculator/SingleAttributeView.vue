@@ -21,29 +21,49 @@ const { getIncreasedValue } = storeToRefs(store)
       getIncreasedValue(attributeId)
     }}</label>
     <div class="item3">
-      <button class="adjust-attribute add" @click="store.adjusteBaseValue(attributeId, 1)">
+      <button
+        type="button"
+        class="adjust-attribute add"
+        @click="store.adjusteBaseValue(attributeId, 1)"
+      >
         +1
       </button>
-      <button class="adjust-attribute add" @click="store.adjusteBaseValue(attributeId, 4)">
+      <button
+        type="button"
+        class="adjust-attribute add"
+        @click="store.adjusteBaseValue(attributeId, 4)"
+      >
         +4
       </button>
-      <button class="adjust-attribute reduce" @click="store.adjusteBaseValue(attributeId, -1)">
+      <button
+        type="button"
+        class="adjust-attribute reduce"
+        @click="store.adjusteBaseValue(attributeId, -1)"
+      >
         -1
       </button>
-      <button class="adjust-attribute reduce" @click="store.adjusteBaseValue(attributeId, -4)">
+      <button
+        type="button"
+        class="adjust-attribute reduce"
+        @click="store.adjusteBaseValue(attributeId, -4)"
+      >
         -4
       </button>
     </div>
 
     <div>
       <button
-        :class="increased === 1 ? 'increase highlight item4' : 'increase item4'"
+        type="button"
+        class="increase item4"
+        :aria-pressed="increased === 1"
         @click="store.increaseAttribute(attributeId, 1)"
       >
         +
       </button>
       <button
-        :class="increased === 2 ? 'increase highlight' : 'increase'"
+        type="button"
+        class="increase"
+        :aria-pressed="increased === 2"
         @click="store.increaseAttribute(attributeId, 2)"
       >
         ++
@@ -129,8 +149,6 @@ button {
 }
 
 button.adjust-attribute {
-  background-color: #f8f2e8; /* Light gray background */
-  color: #333; /* Darker font color */
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
   transition:
@@ -138,38 +156,30 @@ button.adjust-attribute {
     box-shadow 0.3s ease; /* Smooth transition effects */
 }
 
-button.add {
+button.add:not(:active) {
   background-color: #4500d8;
   color: white;
 }
-button.reduce {
+button.reduce:not(:active) {
   background-color: #d80027;
   color: white;
 }
 
 button.increase {
-  background-color: #f8f2e8; /* Light gray background */
-  color: #333; /* Darker font color */
   cursor: pointer;
   transition:
     background-color 0.3s ease,
     box-shadow 0.3s ease; /* Smooth transition effects */
 }
-/* Active state: Change only the background color */
-button.highlight {
-  background-color: #93d800; /* Modern blue background for active state */
-  color: #422002; /* Change the font color to white when active */
+
+button.increase[aria-pressed='false'] {
+  background-color: #f8f2e8;
+  color: #333;
 }
 
 /* Hover effects if hover is supported */
 @media (hover: hover) {
   button:hover {
-    background-color: #00d8b1;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-
-  button.highlight:hover {
-    background-color: #7fbb00ff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
 }

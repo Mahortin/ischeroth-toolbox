@@ -1,10 +1,41 @@
 @import './base.css';
 
+html {
+  scrollbar-gutter: stable;
+}
+
+.filter-controls .filter-option {
+  display: inline-block;
+}
+
+.filter-controls button {
+  padding: 5px;
+  margin: 3px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button[aria-pressed='true'],
+button.adjust-attribute:active {
+  background-color: #93d800;
+  color: #422002;
+}
+
 #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 clamp(1rem, 4vw, 2rem);
   font-weight: normal;
+}
+
+.page-content {
+  flex: 1;
+  padding-block: 1.25rem 2rem;
+  overflow-wrap: anywhere;
 }
 
 a,
@@ -29,19 +60,10 @@ footer {
 }
 
 @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: block;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-  .splitSection {
+  .split-section {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    padding: 0 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 1rem;
   }
 }

@@ -24,28 +24,28 @@ const { getIncreasedValue } = storeToRefs(store)
       <button
         type="button"
         class="adjust-attribute add"
-        @click="store.adjusteBaseValue(attributeId, 1)"
+        @click="store.adjustBaseValue(attributeId, 1)"
       >
         +1
       </button>
       <button
         type="button"
         class="adjust-attribute add"
-        @click="store.adjusteBaseValue(attributeId, 4)"
+        @click="store.adjustBaseValue(attributeId, 4)"
       >
         +4
       </button>
       <button
         type="button"
         class="adjust-attribute reduce"
-        @click="store.adjusteBaseValue(attributeId, -1)"
+        @click="store.adjustBaseValue(attributeId, -1)"
       >
         -1
       </button>
       <button
         type="button"
         class="adjust-attribute reduce"
-        @click="store.adjusteBaseValue(attributeId, -4)"
+        @click="store.adjustBaseValue(attributeId, -4)"
       >
         -4
       </button>

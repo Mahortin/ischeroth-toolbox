@@ -2,6 +2,7 @@ package com.example.ischeroth_rest.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class SkillController {
     }
 
     @GetMapping("/{id}")
-    public Skill get(@PathVariable Long id) {
-        return repo.findById(id).orElseThrow();
+    public ResponseEntity<Skill> get(@PathVariable Long id) {
+        return ResponseEntity.of(repo.findById(id));
     }
 }

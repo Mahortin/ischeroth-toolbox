@@ -16,7 +16,8 @@ html {
   font-size: 16px;
 }
 
-.filter-controls button[aria-pressed='true'] {
+button[aria-pressed='true'],
+button.adjust-attribute:active {
   background-color: #93d800;
   color: #422002;
 }

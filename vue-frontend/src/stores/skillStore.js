@@ -157,79 +157,23 @@ export const useSkillStore = defineStore('skillStore', {
       }
     },
     calcCombatSkill(skill) {
-      // window.alert('reached calcSkill for: ' + skill.name)
-      // window.alert('reached milestone 0')
-
-      var firstAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[0],
-      )
-      // window.alert('reached milestone 0.3')
-      var secondAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[1],
-      )
-      // window.alert('reached milestone 0.6')
-      var thirdAttribute = this.attributeStore.attributes.find(
-        (attribute) => attribute.shortName === skill.attributes[2],
-      )
-      // window.alert('reached milestone 1')
-      // window.alert('firstAttribute -> ' + firstAttribute.shortName + ":" + firstAttribute.valueIncreased + "(" + firstAttribute.value + ")")
-      // window.alert('secondAttribute -> ' + secondAttribute.shortName + ":" + secondAttribute.valueIncreased + "(" + secondAttribute.value + ")")
-      // window.alert('thirdAttribute -> ' + thirdAttribute.shortName + ":" + thirdAttribute.valueIncreased + "(" + thirdAttribute.value + ")")
-      var highestAttributes = []
-      if (
-        firstAttribute.valueIncreased > secondAttribute.valueIncreased ||
-        firstAttribute.valueIncreased > thirdAttribute.valueIncreased
-      )
-        highestAttributes.push(firstAttribute)
-      if (highestAttributes.length === 0) {
-        highestAttributes.push(secondAttribute)
-        highestAttributes.push(thirdAttribute)
-      } else {
-        highestAttributes.push(
-          secondAttribute.valueIncreased >= thirdAttribute.valueIncreased
-            ? secondAttribute
-            : thirdAttribute,
+      const highestAttributes = skill.attributes
+        .map((shortName) =>
+          this.attributeStore.attributes.find((attribute) => attribute.shortName === shortName),
         )
-      }
-      // window.alert('reached milestone 2')
-      if (highestAttributes.some((attribute) => attribute.increased)) {
-        // window.alert('milestone 2.3: spotted increased value')
-        var base = 0
-        var increasedBase = 0
-        // window.alert('milestone 2.4')
-        highestAttributes.forEach((attribute) => {
-          base += attribute.value
-          increasedBase += attribute.valueIncreased
-          // window.alert(
-          //   'attribute:' +
-          //     attribute.shortName +
-          //     ' value:' +
-          //     attribute.value +
-          //     ' increasedValue:' +
-          //     attribute.valueIncreased +
-          //     ' base:' +
-          //     base +
-          //     ' increasedBase:' +
-          //     increasedBase,
-          // )
-        })
-        base = Math.round(base / skill.divisor)
-        increasedBase = Math.round(increasedBase / skill.divisor)
-        skill.value = increasedBase > base ? increasedBase : base
-        skill.increased = increasedBase > base ? true : false
-      } else {
-        // window.alert('milestone 2.6: spotted increased value')
-        var baseSum = 0
-        // window.confirm('base:startBase -> ' + skill.base + ':' + baseSum)
-        highestAttributes.forEach((attribute) => {
-          baseSum += attribute.value
-          // window.alert(attribute.name + ":" + attribute.value)
-        })
-        skill.value = Math.round(baseSum / skill.divisor)
-        // window.confirm('base:baseSum -> ' + skill.base + ':' + baseSum)
-        skill.increased = false
-      }
-      // window.alert('reached milestone 3')
+        .sort((left, right) => right.valueIncreased - left.valueIncreased || right.value - left.value)
+        .slice(0, 2)
+
+      const baseSum = highestAttributes.reduce((sum, attribute) => sum + attribute.value, 0)
+      const effectiveSum = highestAttributes.reduce(
+        (sum, attribute) => sum + attribute.valueIncreased,
+        0,
+      )
+      const baseValue = Math.round(baseSum / skill.divisor)
+      const effectiveValue = Math.round(effectiveSum / skill.divisor)
+
+      skill.value = Math.max(baseValue, effectiveValue)
+      skill.increased = effectiveValue > baseValue
     },
   },
 })

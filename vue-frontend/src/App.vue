@@ -32,7 +32,7 @@ import { RouterView } from 'vue-router'
       height="125"
     />
     <label>Beta Version</label><br />
-    <label>Web Version v0.4.2</label><br />
+    <label>Web Version v0.4.3</label><br />
     <label>Ruleset v2.15.2</label><br />
     <label>Feedback-Gebete an Makofu</label>
   </footer>

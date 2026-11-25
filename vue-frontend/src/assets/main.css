@@ -1,4 +1,16 @@
 @import './base.css';
+@font-face {
+  font-family: 'Metamorphous';
+  src: url('./fonts/Metamorphous-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.font-display {
+  font-family: 'Metamorphous', Georgia, serif;
+  font-weight: 400;
+}
 
 html {
   scrollbar-gutter: stable;

@@ -11,7 +11,7 @@ const filterSummary = computed(
 </script>
 
 <template>
-  <details class="app-panel app-filter-panel skill-filters" open>
+  <details class="app-panel app-filter-panel" open>
     <summary>
       <span class="app-filter-label">Filter</span>
       <span>{{ filterSummary }}</span>
@@ -41,10 +41,6 @@ const filterSummary = computed(
 </template>
 
 <style scoped>
-.skill-filters {
-  margin-bottom: 0.75rem;
-}
-
 .filter-controls {
   display: flex;
   flex-wrap: wrap;

@@ -72,8 +72,18 @@ html {
 }
 
 .increased-value,
-.increased-value > td {
+.increased-value > :is(th, td),
+.increased-value .result-value {
   font-weight: bold;
+}
+
+.result-value {
+  display: inline-block;
+  min-inline-size: 2ch;
+  padding-inline: 0.35rem;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
 }
 
 #app {

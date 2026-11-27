@@ -43,18 +43,33 @@ function doNothing() {
         ></SingleAttributeView>
       </div>
     </section>
-    <section aria-label="Grundwerte und Talente">
+    <section class="calculator-results" aria-labelledby="calculator-results-heading">
+      <h2 id="calculator-results-heading">Grundwerte und Talente</h2>
       <FilterView />
-      <GrundwerteView />
-      <SkillsView />
+      <div class="app-panel result-panel">
+        <template
+          v-if="skillStore.getFilteredGrundwerte.length || skillStore.getFilteredSkills.length"
+        >
+          <GrundwerteView />
+          <SkillsView />
+        </template>
+        <p v-else>Keine Werte für diese Filterauswahl.</p>
+      </div>
     </section>
   </div>
 </template>
 
 <style scoped>
 .calculator,
-.attribute-list {
+.attribute-list,
+.calculator-results,
+.result-panel {
   display: grid;
   gap: 0.75rem;
+}
+
+.result-panel {
+  gap: 1.25rem;
+  padding: 0.85rem 1rem;
 }
 </style>

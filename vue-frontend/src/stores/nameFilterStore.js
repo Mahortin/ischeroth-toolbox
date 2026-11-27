@@ -2,36 +2,22 @@ import { defineStore } from 'pinia'
 
 export const useNameFilterStore = defineStore('nameFilterStore', {
   state: () => ({
-    genders: [
-      { name: 'Männlich', englishName: 'male' },
-      { name: 'Weiblich', englishName: 'female' },
-      { name: 'Divers', englishName: 'diverse' },
-    ],
-    genderFilter: [],
-    speciesFilter: [],
+    mode: 'species',
+    species: null,
+    culture: null,
   }),
 
-  getters: {},
   actions: {
-    resetGenderFilter() {
-      this.genderFilter = []
+    selectMode(mode) {
+      if (this.mode === mode) return
+      this.mode = mode
+      this.species = null
+      this.culture = null
     },
-    resetSpeciesFilter() {
-      this.speciesFilter = []
-    },
-    addGenderFilter(gender) {
-      if (gender === null) window.alert('group is null!')
-
-      !this.genderFilter.includes(gender)
-        ? this.genderFilter.push(gender)
-        : this.genderFilter.splice(this.genderFilter.indexOf(gender), 1)
-    },
-    addSpeciesFilter(species) {
-      if (species === null) window.alert('species is null!')
-
-      !this.speciesFilter.includes(species)
-        ? this.speciesFilter.push(species)
-        : this.speciesFilter.splice(this.speciesFilter.indexOf(species), 1)
+    selectSpecies(species) {
+      if (this.species === species) return
+      this.species = species
+      this.culture = null
     },
   },
 })

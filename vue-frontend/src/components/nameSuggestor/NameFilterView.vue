@@ -1,43 +1,11 @@
 <script setup>
 import { computed } from 'vue'
-import placeholderIcon from '@/assets/icons/enlightenment.svg'
 import { useNameStore } from '@/stores/nameStore'
 import { useNameFilterStore } from '@/stores/nameFilterStore'
+import { getSpeciesIcon, speciesDisplay } from './speciesDisplay'
 
 const store = useNameFilterStore()
 const nameStore = useNameStore()
-
-const speciesIcons = import.meta.glob('/src/assets/icons/species/*.svg', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-})
-
-// Set icon to the SVG filename in assets/icons/species.
-const speciesDisplay = new Map(
-  [
-    { label: 'Mensch', id: 'human', icon: 'person.svg' },
-    { label: 'Elf', id: 'elf', icon: 'elf-ear.svg' },
-    { label: 'Satyr', id: 'satyr', icon: 'hoof.svg' },
-    { label: 'Zwerg', id: 'dwarf', icon: 'dwarf-helmet.svg' },
-    { label: 'Goblin', id: 'goblin', icon: 'goblin-head.svg' },
-    { label: 'Ork', id: 'orc', icon: 'orc-head.svg' },
-    { label: 'Felida', id: 'felida', icon: 'lynx-head.svg' },
-    { label: 'Harakhaya', id: 'harakhaya', icon: 'hyena-head.svg' },
-    { label: 'Khanidh', id: 'khanidh', icon: 'wolf-head.svg' },
-    { label: 'Nezumi', id: 'nezumi', icon: 'rat.svg' },
-    { label: 'Panthera', id: 'panthera', icon: 'tiger-head.svg' },
-    { label: 'Ursid', id: 'ursid', icon: 'bear-head.svg' },
-    { label: 'Adrisya', id: 'adrisya', icon: 'chameleon-glyph.svg' },
-    { label: 'Uramantha', id: 'uramantha', icon: 'rupee.svg' },
-    { label: 'Charaki', id: 'charaki', icon: 'shark-jaws.svg' },
-    { label: 'Lorel', id: 'lorel', icon: 'wave-crest.svg' },
-    { label: 'Zathoqua', id: 'zathoqua', icon: 'frog-adjusted.svg' },
-    { label: 'Accior', id: 'accior', icon: 'eagle-head.svg' },
-    { label: 'Ornior', id: 'ornior', icon: 'raven.svg' },
-    { label: 'Mari', id: 'mari', icon: 'insect-jaws.svg' },
-  ].map((species) => [species.id, species]),
-)
 
 const speciesOptions = computed(() => {
   const available = new Set(nameStore.names.map((name) => name.speciesGroup).filter(Boolean))
@@ -49,24 +17,186 @@ const speciesOptions = computed(() => {
       return {
         id,
         label: display?.label ?? id,
-        icon: speciesIcons[`/src/assets/icons/species/${display?.icon}`] ?? placeholderIcon,
+        icon: getSpeciesIcon(display?.icon),
       }
     })
+})
+
+const cultureSpecies = computed(() => {
+  if (!store.culture) return []
+  const members = new Set(
+    nameStore.names
+      .filter((name) => name.cultureGroup === store.culture)
+      .map((name) => name.speciesGroup),
+  )
+  return speciesOptions.value.filter((species) => members.has(species.id))
+})
+
+const selectionLabel = computed(() => {
+  if (store.mode === 'culture') return store.culture ?? 'Kultur wählen'
+  if (!store.species) return 'Spezies wählen'
+  const species = speciesDisplay.get(store.species)?.label ?? store.species
+  return `${species} · ${store.culture ?? 'Alle Kulturen'}`
 })
 </script>
 
 <template>
-  <div class="filter-controls">
-    <div class="filter-option" v-for="species in speciesOptions" :key="species.id">
-      <button
-        type="button"
-        :aria-pressed="store.speciesFilter.includes(species.id)"
-        @click="store.addSpeciesFilter(species.id)"
+  <details class="name-filters" open>
+    <summary>
+      <span class="summary-label">Filter</span>
+      <span>{{ selectionLabel }}</span>
+    </summary>
+    <div class="filter-content">
+      <div class="browse-modes" role="group" aria-label="Suchmodus">
+        <button
+          type="button"
+          :aria-pressed="store.mode === 'species'"
+          @click="store.selectMode('species')"
+        >
+          Nach Spezies
+        </button>
+        <button
+          type="button"
+          :aria-pressed="store.mode === 'culture'"
+          @click="store.selectMode('culture')"
+        >
+          Nach Kultur
+        </button>
+      </div>
+      <div v-if="store.mode === 'species'" class="species-grid" role="group" aria-label="Spezies">
+        <button
+          v-for="species in speciesOptions"
+          :key="species.id"
+          type="button"
+          :aria-pressed="store.species === species.id"
+          @click="store.selectSpecies(species.id)"
+        >
+          <img :src="species.icon" alt="" width="24" height="24" />
+          {{ species.label }}
+        </button>
+      </div>
+      <div
+        v-if="nameStore.cultureOptions.length"
+        class="cultures"
+        role="group"
+        aria-label="Kulturen"
       >
-        <img :src="species.icon" alt="" width="20" height="20" />
-        {{ species.label }}
-      </button>
+        <button
+          v-if="store.mode === 'species'"
+          type="button"
+          :aria-pressed="store.culture === null"
+          @click="store.culture = null"
+        >
+          Alle Kulturen
+        </button>
+        <button
+          v-for="culture in nameStore.cultureOptions"
+          :key="culture"
+          type="button"
+          :aria-pressed="store.culture === culture"
+          @click="store.culture = culture"
+        >
+          {{ culture }}
+        </button>
+      </div>
+      <p v-else-if="nameStore.isLoaded && store.mode === 'culture'" role="status">
+        Keine Kulturen verfügbar.
+      </p>
+      <div v-if="cultureSpecies.length" class="culture-members">
+        <p id="culture-members-label">Spezies in {{ store.culture }}</p>
+        <ul aria-labelledby="culture-members-label" role="list">
+          <li v-for="species in cultureSpecies" :key="species.id">
+            <img :src="species.icon" alt="" width="20" height="20" />
+            {{ species.label }}
+          </li>
+        </ul>
+      </div>
     </div>
-    <button type="button" @click="store.resetSpeciesFilter()">Reset</button>
-  </div>
+  </details>
 </template>
+
+<style scoped>
+.name-filters {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-background-soft);
+}
+
+summary {
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+}
+
+.summary-label {
+  margin-inline: 0.35rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.filter-content {
+  display: grid;
+  gap: 1rem;
+  padding: 0 1rem 1rem;
+}
+
+.browse-modes,
+.cultures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  gap: 0.5rem;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-background);
+  color: var(--color-heading);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--color-border-hover);
+}
+
+button[aria-pressed='true'] {
+  background: #93d800;
+  color: #422002;
+}
+
+.species-grid img {
+  flex: none;
+}
+
+.culture-members {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.75rem;
+}
+
+.culture-members ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.35rem;
+}
+
+.culture-members li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+</style>

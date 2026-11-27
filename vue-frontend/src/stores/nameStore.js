@@ -2,16 +2,6 @@ import { defineStore } from 'pinia'
 import { fetchNames } from '@/services/nameService'
 import { useNameFilterStore } from './nameFilterStore'
 
-function filterNamesByGender(names, selectedGroups, gender) {
-  return names.filter(
-    (name) =>
-      name.gender === gender &&
-      (!selectedGroups.length ||
-        selectedGroups.includes(name.speciesGroup) ||
-        selectedGroups.includes(name.cultureGroup)),
-  )
-}
-
 export const useNameStore = defineStore('nameStore', {
   state: () => ({
     names: [],
@@ -24,16 +14,27 @@ export const useNameStore = defineStore('nameStore', {
 
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
-    getFilteredNames: (state) => {
-      if (state.filter.genderFilter == 0) return state.names
-      return state.names.filter((name) => state.filter.genderFilter.includes(name.gender))
+    cultureOptions: ({ names, filter }) => {
+      const relevantNames =
+        filter.mode === 'species'
+          ? names.filter((name) => name.speciesGroup === filter.species)
+          : names
+      const cultures = relevantNames.map((name) => name.cultureGroup)
+      return [...new Set(cultures.filter((culture) => culture && culture !== 'placeholder'))].sort(
+        (a, b) => a.localeCompare(b, 'de'),
+      )
     },
-    getFilteredDiverseNames: (state) =>
-      filterNamesByGender(state.names, state.filter.speciesFilter, 'neutral'),
-    getFilteredFemaleNames: (state) =>
-      filterNamesByGender(state.names, state.filter.speciesFilter, 'female'),
-    getFilteredMaleNames: (state) =>
-      filterNamesByGender(state.names, state.filter.speciesFilter, 'male'),
+    hasSelection: ({ filter }) =>
+      Boolean(filter.mode === 'species' ? filter.species : filter.culture),
+    getFilteredNames() {
+      if (!this.hasSelection) return []
+      const { mode, species, culture } = this.filter
+      return this.names.filter(
+        (name) =>
+          (mode === 'culture' || name.speciesGroup === species) &&
+          (!culture || name.cultureGroup === culture),
+      )
+    },
   },
   actions: {
     async ensureLoaded({ force = false, ttlMs = 0 } = {}) {

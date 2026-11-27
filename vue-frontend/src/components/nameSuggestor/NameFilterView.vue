@@ -172,8 +172,9 @@ button:hover {
 }
 
 button[aria-pressed='true'] {
-  background: #93d800;
-  color: #422002;
+  background: #152120;
+  border-color: #00d8b1;
+  color: #f8f2e8;
 }
 
 .species-grid img {

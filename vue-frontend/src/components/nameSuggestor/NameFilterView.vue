@@ -160,21 +160,18 @@ button {
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: var(--color-background);
-  color: var(--color-heading);
   font: inherit;
   text-align: start;
   cursor: pointer;
 }
 
-button:hover {
-  border-color: var(--color-border-hover);
+button:not([aria-pressed='true']) {
+  background: var(--color-background);
+  color: var(--color-heading);
 }
 
-button[aria-pressed='true'] {
-  background: #152120;
-  border-color: #00d8b1;
-  color: #f8f2e8;
+button:not([aria-pressed='true']):hover {
+  border-color: var(--color-border-hover);
 }
 
 .species-grid img {

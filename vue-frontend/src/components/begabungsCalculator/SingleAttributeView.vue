@@ -17,7 +17,7 @@ const { getIncreasedValue } = storeToRefs(store)
 <template>
   <div class="attribute-info wrapper">
     <span class="attribute-name item1"> {{ attributeName }} ({{ attributeShortName }})</span>
-    <label :class="increased > 0 ? 'highlight item2' : 'item2'">{{
+    <label class="item2" :class="{ 'increased-value': increased > 0 }">{{
       getIncreasedValue(attributeId)
     }}</label>
     <div class="item3">
@@ -125,7 +125,6 @@ const { getIncreasedValue } = storeToRefs(store)
 
 label {
   /* background-color: #2c3e50;  */
-  color: #ecf0f1; /* Light text for contrast */
   /* border: 1px solid #34495e; */
   padding: 0px 20px;
   font-size: 16px;
@@ -134,10 +133,13 @@ label {
     box-shadow 0.3s ease; /* Smooth transitions */
 }
 
-.highlight {
+label:not(.increased-value) {
+  color: #ecf0f1;
+}
+
+label.increased-value {
   flex-shrink: 0;
-  color: #93d800;
-  font-weight: bold;
+  border-radius: 8px;
 }
 
 button {
@@ -166,6 +168,8 @@ button.reduce:not(:active) {
 }
 
 button.increase {
+  border-width: 1px;
+  border-style: solid;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
@@ -173,6 +177,7 @@ button.increase {
 }
 
 button.increase[aria-pressed='false'] {
+  border-color: transparent;
   background-color: #f8f2e8;
   color: #333;
 }

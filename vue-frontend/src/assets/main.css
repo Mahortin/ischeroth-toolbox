@@ -1,4 +1,11 @@
 @import './base.css';
+
+:root {
+  --color-selection-accent: #00d8b1;
+  --color-selection-background: #152120;
+  --color-selection-text: #f8f2e8;
+}
+
 @font-face {
   font-family: 'Metamorphous';
   src: url('./fonts/Metamorphous-Regular.ttf') format('truetype');
@@ -23,12 +30,27 @@ html {
 .filter-controls button {
   padding: 5px;
   margin: 3px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-size: 16px;
 }
 
-button[aria-pressed='true'],
+button[aria-pressed='true']:not(.adjust-attribute) {
+  background: var(--color-selection-background);
+  border-color: var(--color-selection-accent);
+  color: var(--color-selection-text);
+}
+
+.increased-value {
+  background-color: var(--color-selection-background);
+  color: var(--color-selection-accent);
+}
+
+.increased-value,
+.increased-value > td {
+  font-weight: bold;
+}
+
 button.adjust-attribute:active {
   background-color: #93d800;
   color: #422002;

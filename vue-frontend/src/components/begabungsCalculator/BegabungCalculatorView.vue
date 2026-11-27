@@ -24,9 +24,9 @@ function doNothing() {
 <template>
   <p v-if="loadFailed" role="alert">Der Begabungsrechner konnte nicht geladen werden.</p>
   <p v-else-if="!ready" role="status">Begabungsrechner wird geladen …</p>
-  <div v-else class="split-section">
-    <section aria-label="Attribute">
-      <h2>Attribute</h2>
+  <div v-else class="split-section calculator">
+    <section class="attribute-list" aria-label="Attribute">
+      <h2 class="font-display">Attribute</h2>
       <div
         v-for="attribute in attributeStore.attributes"
         :key="attribute.id"
@@ -43,10 +43,33 @@ function doNothing() {
         ></SingleAttributeView>
       </div>
     </section>
-    <section aria-label="Grundwerte und Talente">
+    <section class="calculator-results" aria-labelledby="calculator-results-heading">
+      <h2 id="calculator-results-heading" class="font-display">Grundwerte und Talente</h2>
       <FilterView />
-      <GrundwerteView />
-      <SkillsView />
+      <div class="app-panel result-panel">
+        <template
+          v-if="skillStore.getFilteredGrundwerte.length || skillStore.getFilteredSkills.length"
+        >
+          <GrundwerteView />
+          <SkillsView />
+        </template>
+        <p v-else>Keine Werte für diese Filterauswahl.</p>
+      </div>
     </section>
   </div>
 </template>
+
+<style scoped>
+.calculator,
+.attribute-list,
+.calculator-results,
+.result-panel {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.result-panel {
+  gap: 1.25rem;
+  padding: 0.85rem 1rem;
+}
+</style>

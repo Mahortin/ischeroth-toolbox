@@ -1,9 +1,9 @@
 <script setup>
+import { computed } from 'vue'
 import { useAttributeStore } from '@/stores/attributeStore'
-import { storeToRefs } from 'pinia'
 
-defineProps({
-  attributeId: String,
+const props = defineProps({
+  attributeId: [String, Number],
   attributeShortName: String,
   attributeName: String,
   attributeValue: Number,
@@ -11,63 +11,67 @@ defineProps({
 })
 
 const store = useAttributeStore()
-const { getIncreasedValue } = storeToRefs(store)
+const currentValue = computed(() => store.getIncreasedValue(props.attributeId))
+const adjustments = [-4, -1, 1, 4]
 </script>
 
 <template>
-  <div class="attribute-info wrapper">
-    <span class="attribute-name item1"> {{ attributeName }} ({{ attributeShortName }})</span>
-    <label :class="increased > 0 ? 'highlight item2' : 'item2'">{{
-      getIncreasedValue(attributeId)
-    }}</label>
-    <div class="item3">
-      <button
-        type="button"
-        class="adjust-attribute add"
-        @click="store.adjustBaseValue(attributeId, 1)"
-      >
-        +1
-      </button>
-      <button
-        type="button"
-        class="adjust-attribute add"
-        @click="store.adjustBaseValue(attributeId, 4)"
-      >
-        +4
-      </button>
-      <button
-        type="button"
-        class="adjust-attribute reduce"
-        @click="store.adjustBaseValue(attributeId, -1)"
-      >
-        -1
-      </button>
-      <button
-        type="button"
-        class="adjust-attribute reduce"
-        @click="store.adjustBaseValue(attributeId, -4)"
-      >
-        -4
-      </button>
+  <div class="app-panel attribute-info">
+    <div class="attribute-header">
+      <span class="attribute-name">{{ attributeName }} ({{ attributeShortName }})</span>
+      <div class="attribute-values">
+        <output
+          class="current-value"
+          :class="{ 'increased-value': increased > 0 }"
+          :aria-label="`Aktueller Wert für ${attributeName}`"
+          >{{ currentValue }}</output
+        >
+        <span
+          class="base-value"
+          :class="{ 'base-value-hidden': currentValue == null || currentValue === attributeValue }"
+        >
+          Basis {{ attributeValue }}
+        </span>
+      </div>
     </div>
 
-    <div>
-      <button
-        type="button"
-        class="increase item4"
-        :aria-pressed="increased === 1"
-        @click="store.increaseAttribute(attributeId, 1)"
-      >
-        +
-      </button>
-      <button
-        type="button"
-        class="increase"
-        :aria-pressed="increased === 2"
-        @click="store.increaseAttribute(attributeId, 2)"
-      >
-        ++
-      </button>
+    <div class="attribute-actions">
+      <div class="action-group base-actions" role="group" aria-label="Basiswert">
+        <span class="action-label" aria-hidden="true">Basiswert</span>
+        <div class="action-buttons">
+          <button
+            v-for="adjustment in adjustments"
+            :key="adjustment"
+            type="button"
+            class="app-button"
+            @click="store.adjustBaseValue(attributeId, adjustment)"
+          >
+            {{ adjustment < 0 ? '−' : '+' }}{{ Math.abs(adjustment) }}
+          </button>
+        </div>
+      </div>
+
+      <div class="action-group talent-actions" role="group" aria-label="Begabung">
+        <span class="action-label" aria-hidden="true">Begabung</span>
+        <div class="action-buttons">
+          <button
+            type="button"
+            class="app-button"
+            :aria-pressed="increased === 1"
+            @click="store.increaseAttribute(attributeId, 1)"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            class="app-button"
+            :aria-pressed="increased === 2"
+            @click="store.increaseAttribute(attributeId, 2)"
+          >
+            ++
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -75,112 +79,84 @@ const { getIncreasedValue } = storeToRefs(store)
 <style scoped>
 .attribute-info {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, auto);
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  /* max-width: 500px; */
-  margin: auto;
-  padding: 2px;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
 }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  grid-auto-rows: 20%;
-  grid-template-areas:
-    'a a a a b b b b'
-    'a a a a b b b b'
-    'c c c c d d d d'
-    'c c c c d d d d';
+.attribute-header {
+  display: flex;
   align-items: start;
+  justify-content: space-between;
+  gap: 0.75rem;
 }
 
-.item1 {
-  grid-area: a;
-}
-.item2 {
-  grid-area: b;
-}
-.item3 {
-  grid-area: c;
-}
-.item4 {
-  grid-area: d;
+.attribute-name {
+  color: var(--color-heading);
+  font-weight: 600;
 }
 
-.two-rows {
-  grid-row: span 2;
+.attribute-values {
+  display: grid;
+  justify-items: end;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.arrange-horizontally > * {
-  display: inline-block;
-  text-align: center;
-}
-.arrange-vertically > * {
-  display: block;
-}
-
-label {
-  /* background-color: #2c3e50;  */
-  color: #ecf0f1; /* Light text for contrast */
-  /* border: 1px solid #34495e; */
-  padding: 0px 20px;
-  font-size: 16px;
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transitions */
+.current-value {
+  min-inline-size: 2ch;
+  border-radius: 8px;
+  padding-inline: 0.35rem;
+  color: var(--color-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: end;
 }
 
-.highlight {
-  flex-shrink: 0;
-  color: #93d800;
-  font-weight: bold;
+.current-value.increased-value {
+  color: var(--color-selection-accent);
 }
 
-button {
-  padding: 5px 10px;
-  margin: 3px;
-  border: none;
-  border-radius: 8px; /* Softer edges with rounded corners */
-  font-size: 16px;
+.base-value,
+.action-label {
+  font-size: 0.85rem;
 }
 
-button.adjust-attribute {
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transition effects */
+.base-value-hidden {
+  visibility: hidden;
 }
 
-button.add:not(:active) {
-  background-color: #4500d8;
-  color: white;
-}
-button.reduce:not(:active) {
-  background-color: #d80027;
-  color: white;
+.attribute-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
 }
 
-button.increase {
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transition effects */
+.action-group {
+  display: grid;
+  gap: 0.25rem;
 }
 
-button.increase[aria-pressed='false'] {
-  background-color: #f8f2e8;
-  color: #333;
+.base-actions {
+  flex: 1 1 11.75rem;
+  min-inline-size: 0;
 }
 
-/* Hover effects if hover is supported */
-@media (hover: hover) {
-  button:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
+.action-buttons {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.base-actions .action-buttons {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.talent-actions .action-buttons {
+  grid-template-columns: repeat(2, 2.75rem);
+}
+
+.action-buttons .app-button {
+  justify-content: center;
+  padding-inline: 0.15rem;
 }
 </style>

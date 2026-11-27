@@ -1,4 +1,11 @@
 @import './base.css';
+
+:root {
+  --color-selection-accent: #00d8b1;
+  --color-selection-background: #152120;
+  --color-selection-text: #f8f2e8;
+}
+
 @font-face {
   font-family: 'Metamorphous';
   src: url('./fonts/Metamorphous-Regular.ttf') format('truetype');
@@ -16,22 +23,67 @@ html {
   scrollbar-gutter: stable;
 }
 
-.filter-controls .filter-option {
-  display: inline-block;
+.app-panel {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-background-soft);
 }
 
-.filter-controls button {
-  padding: 5px;
-  margin: 3px;
-  border: none;
+.app-filter-panel > summary {
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+}
+
+.app-filter-label {
+  margin-inline: 0.35rem 0.75rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  font-size: 16px;
+  background: var(--color-background);
+  color: var(--color-heading);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
 }
 
-button[aria-pressed='true'],
-button.adjust-attribute:active {
-  background-color: #93d800;
-  color: #422002;
+.app-button:hover {
+  border-color: var(--color-border-hover);
+}
+
+.app-button[aria-pressed='true'],
+.app-button:active:not([aria-pressed]) {
+  background: var(--color-selection-background);
+  border-color: var(--color-selection-accent);
+  color: var(--color-selection-text);
+}
+
+.increased-value {
+  background-color: var(--color-selection-background);
+  color: var(--color-selection-accent);
+}
+
+.increased-value,
+.increased-value > :is(th, td),
+.increased-value .result-value {
+  font-weight: bold;
+}
+
+.result-value {
+  display: inline-block;
+  min-inline-size: 2ch;
+  padding-inline: 0.35rem;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
 }
 
 #app {

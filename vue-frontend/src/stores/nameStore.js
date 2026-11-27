@@ -14,29 +14,25 @@ export const useNameStore = defineStore('nameStore', {
 
   getters: {
     isLoaded: (s) => !!s.loadedAt && !s.loading,
-    getFilteredNames: (state) => {
-      if (state.filter.genderFilter == 0) return state.names
-      return state.names.filter((name) => state.filter.genderFilter.includes(name.gender))
-    },
-    getFilteredDiverseNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'neutral')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'neutral',
+    cultureOptions: ({ names, filter }) => {
+      const relevantNames =
+        filter.mode === 'species'
+          ? names.filter((name) => name.speciesGroup === filter.species)
+          : names
+      const cultures = relevantNames.map((name) => name.cultureGroup)
+      return [...new Set(cultures.filter((culture) => culture && culture !== 'placeholder'))].sort(
+        (a, b) => a.localeCompare(b, 'de'),
       )
     },
-    getFilteredFemaleNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'female')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'female',
-      )
-    },
-    getFilteredMaleNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'male')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'male',
+    hasSelection: ({ filter }) =>
+      Boolean(filter.mode === 'species' ? filter.species : filter.culture),
+    getFilteredNames() {
+      if (!this.hasSelection) return []
+      const { mode, species, culture } = this.filter
+      return this.names.filter(
+        (name) =>
+          (mode === 'culture' || name.speciesGroup === species) &&
+          (!culture || name.cultureGroup === culture),
       )
     },
   },

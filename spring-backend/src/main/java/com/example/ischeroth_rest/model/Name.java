@@ -10,36 +10,68 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "names")
 public class Name {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "name_group")
-    private String group;
+    @Column(name = "species_group")
+    private String species_group;
+    @Column(name = "culture_group")
+    private String culture_group;
     @Column(name = "gender")
     private String gender;
 
+    public Name() {
+    }
 
-    public Name() {}
-
-    public Name(String name, String group, String gender) {
+    public Name(String name, String species_group, String culture_group, String gender) {
         this.name = name;
-        this.group = group;
+        this.species_group = species_group;
+        this.culture_group = culture_group;
         this.gender = gender;
     }
 
     // Getter & Setter
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getGroup() { return group; }
-    public void setGroup(String group) { this.group = group; }
+    public String getName() {
+        return name;
+    }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSpeciesGroup() {
+        return species_group;
+    }
+
+    public void setSpeciesGroup(String species_group) {
+        this.species_group = species_group;
+    }
+
+    public String getCultureGroup() {
+        return culture_group;
+    }
+
+    public void setCultureGroup(String culture_group) {
+        this.culture_group = culture_group;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
 }

@@ -10,7 +10,7 @@ defineProps({
   <section class="artist">
     <header class="artist-heading">
       <h3>{{ artist.name }}</h3>
-      <a :href="artist.website.url">{{ artist.website.label }}</a>
+      <a v-if="artist.website" :href="artist.website.url">{{ artist.website.label }}</a>
     </header>
 
     <IconView v-for="icon in artist.icons" :key="icon.name" :icon="icon" />

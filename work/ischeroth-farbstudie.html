@@ -1,0 +1,63 @@
+<style>
+  #ischeroth-farbstudie {
+    --cover: #152120;
+    --surface: #22302e;
+    --ink: #f8f2e8;
+    --sand: #f7dbab;
+    --brand: #00d8b1;
+    --brown: #8b572a;
+    --umber: #713604;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.75rem;
+    font: 400 1rem/1.45 system-ui, sans-serif;
+  }
+  #ischeroth-farbstudie section {
+    padding: 1rem;
+    background: var(--cover);
+    color: var(--ink);
+    border-radius: 0.85rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+  #ischeroth-farbstudie h3 { color: var(--ink); font: 500 1rem/1.4 system-ui; margin: 0; }
+  #ischeroth-farbstudie .sample {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.45rem 0.65rem;
+    border: 2px solid transparent;
+    border-radius: 0.6rem;
+    background: var(--surface);
+    min-height: 3rem;
+  }
+  #ischeroth-farbstudie .icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--brown);
+    color: var(--ink);
+    border-radius: 0.4rem;
+  }
+  #ischeroth-farbstudie .sand { background: var(--sand); color: var(--umber); }
+  #ischeroth-farbstudie .outline { border-color: var(--brand); }
+  #ischeroth-farbstudie .outline .icon { color: var(--brand); background: var(--cover); }
+  #ischeroth-farbstudie .check { margin-inline-start: auto; }
+  #ischeroth-farbstudie .outline .check { color: var(--brand); }
+  #ischeroth-farbstudie small { color: var(--sand); }
+</style>
+<div id="ischeroth-farbstudie" lang="de" aria-label="Zwei Farben für die Speziesauswahl im Dark Theme">
+  <section>
+    <h3>Sandfläche</h3>
+    <div class="sample"><span class="icon" aria-hidden="true"><i data-lucide="axe"></i></span> Zwerg</div>
+    <div class="sample sand" aria-label="Elf, ausgewählt"><span class="icon" aria-hidden="true"><i data-lucide="leaf"></i></span> Elf <span class="check" aria-hidden="true">✓</span></div>
+    <small>Beige Fläche · braunes Wappen</small>
+  </section>
+  <section>
+    <h3>Türkisrahmen</h3>
+    <div class="sample"><span class="icon" aria-hidden="true"><i data-lucide="axe"></i></span> Zwerg</div>
+    <div class="sample outline" aria-label="Elf, ausgewählt"><span class="icon" aria-hidden="true"><i data-lucide="leaf"></i></span> Elf <span class="check" aria-hidden="true">✓</span></div>
+    <small>Dunkle Fläche · Icon in Regel-Türkis</small>
+  </section>
+</div>

@@ -15,46 +15,30 @@ const { getIncreasedValue } = storeToRefs(store)
 </script>
 
 <template>
-  <div class="attribute-info wrapper">
+  <div class="attribute-info">
     <span class="attribute-name item1"> {{ attributeName }} ({{ attributeShortName }})</span>
     <label class="item2" :class="{ 'increased-value': increased > 0 }">{{
       getIncreasedValue(attributeId)
     }}</label>
-    <div class="item3">
-      <button
-        type="button"
-        class="adjust-attribute add"
-        @click="store.adjustBaseValue(attributeId, 1)"
-      >
+    <div class="item3 attribute-actions">
+      <button type="button" class="app-button" @click="store.adjustBaseValue(attributeId, 1)">
         +1
       </button>
-      <button
-        type="button"
-        class="adjust-attribute add"
-        @click="store.adjustBaseValue(attributeId, 4)"
-      >
+      <button type="button" class="app-button" @click="store.adjustBaseValue(attributeId, 4)">
         +4
       </button>
-      <button
-        type="button"
-        class="adjust-attribute reduce"
-        @click="store.adjustBaseValue(attributeId, -1)"
-      >
+      <button type="button" class="app-button" @click="store.adjustBaseValue(attributeId, -1)">
         -1
       </button>
-      <button
-        type="button"
-        class="adjust-attribute reduce"
-        @click="store.adjustBaseValue(attributeId, -4)"
-      >
+      <button type="button" class="app-button" @click="store.adjustBaseValue(attributeId, -4)">
         -4
       </button>
     </div>
 
-    <div>
+    <div class="item4 attribute-actions">
       <button
         type="button"
-        class="increase item4"
+        class="app-button"
         :aria-pressed="increased === 1"
         @click="store.increaseAttribute(attributeId, 1)"
       >
@@ -62,7 +46,7 @@ const { getIncreasedValue } = storeToRefs(store)
       </button>
       <button
         type="button"
-        class="increase"
+        class="app-button"
         :aria-pressed="increased === 2"
         @click="store.increaseAttribute(attributeId, 2)"
       >
@@ -75,27 +59,14 @@ const { getIncreasedValue } = storeToRefs(store)
 <style scoped>
 .attribute-info {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, auto);
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  /* max-width: 500px; */
-  margin: auto;
-  padding: 2px;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  grid-auto-rows: 20%;
+  grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
-    'a a a a b b b b'
-    'a a a a b b b b'
-    'c c c c d d d d'
-    'c c c c d d d d';
+    'a b'
+    'c d';
   align-items: start;
+  gap: 10px;
+  width: 100%;
+  padding: 2px;
 }
 
 .item1 {
@@ -142,50 +113,9 @@ label.increased-value {
   border-radius: 8px;
 }
 
-button {
-  padding: 5px 10px;
-  margin: 3px;
-  border: none;
-  border-radius: 8px; /* Softer edges with rounded corners */
-  font-size: 16px;
-}
-
-button.adjust-attribute {
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transition effects */
-}
-
-button.add:not(:active) {
-  background-color: #4500d8;
-  color: white;
-}
-button.reduce:not(:active) {
-  background-color: #d80027;
-  color: white;
-}
-
-button.increase {
-  border-width: 1px;
-  border-style: solid;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease; /* Smooth transition effects */
-}
-
-button.increase[aria-pressed='false'] {
-  border-color: transparent;
-  background-color: #f8f2e8;
-  color: #333;
-}
-
-/* Hover effects if hover is supported */
-@media (hover: hover) {
-  button:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
+.attribute-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 </style>

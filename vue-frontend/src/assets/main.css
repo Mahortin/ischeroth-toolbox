@@ -23,19 +23,33 @@ html {
   scrollbar-gutter: stable;
 }
 
-.filter-controls .filter-option {
-  display: inline-block;
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.filter-controls button {
-  padding: 5px;
-  margin: 3px;
-  border: 1px solid transparent;
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  font-size: 16px;
+  background: var(--color-background);
+  color: var(--color-heading);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
 }
 
-button[aria-pressed='true']:not(.adjust-attribute) {
+.app-button:hover {
+  border-color: var(--color-border-hover);
+}
+
+.app-button[aria-pressed='true'],
+.app-button:active:not([aria-pressed]) {
   background: var(--color-selection-background);
   border-color: var(--color-selection-accent);
   color: var(--color-selection-text);
@@ -49,11 +63,6 @@ button[aria-pressed='true']:not(.adjust-attribute) {
 .increased-value,
 .increased-value > td {
   font-weight: bold;
-}
-
-button.adjust-attribute:active {
-  background-color: #93d800;
-  color: #422002;
 }
 
 #app {

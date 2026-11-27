@@ -49,6 +49,7 @@ const selectionLabel = computed(() => {
     <div class="filter-content">
       <div class="browse-modes" role="group" aria-label="Suchmodus">
         <button
+          class="app-button"
           type="button"
           :aria-pressed="store.mode === 'species'"
           @click="store.selectMode('species')"
@@ -56,6 +57,7 @@ const selectionLabel = computed(() => {
           Nach Spezies
         </button>
         <button
+          class="app-button"
           type="button"
           :aria-pressed="store.mode === 'culture'"
           @click="store.selectMode('culture')"
@@ -65,6 +67,7 @@ const selectionLabel = computed(() => {
       </div>
       <div v-if="store.mode === 'species'" class="species-grid" role="group" aria-label="Spezies">
         <button
+          class="app-button"
           v-for="species in speciesOptions"
           :key="species.id"
           type="button"
@@ -82,6 +85,7 @@ const selectionLabel = computed(() => {
         aria-label="Kulturen"
       >
         <button
+          class="app-button"
           v-if="store.mode === 'species'"
           type="button"
           :aria-pressed="store.culture === null"
@@ -90,6 +94,7 @@ const selectionLabel = computed(() => {
           Alle Kulturen
         </button>
         <button
+          class="app-button"
           v-for="culture in nameStore.cultureOptions"
           :key="culture"
           type="button"
@@ -150,28 +155,6 @@ summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
   gap: 0.5rem;
-}
-
-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  font: inherit;
-  text-align: start;
-  cursor: pointer;
-}
-
-button:not([aria-pressed='true']) {
-  background: var(--color-background);
-  color: var(--color-heading);
-}
-
-button:not([aria-pressed='true']):hover {
-  border-color: var(--color-border-hover);
 }
 
 .species-grid img {

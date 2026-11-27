@@ -1,7 +1,7 @@
-import enlightenment from '../../assets/enlightenment.svg'
-import genderFemale from '../../assets/gender-female.svg'
-import genderMale from '../../assets/gender-male.svg'
-import genderTransgender from '../../assets/gender-transgender.svg'
+import enlightenment from '../../assets/icons/enlightenment.svg'
+import genderFemale from '../../assets/icons/gender-female.svg'
+import genderMale from '../../assets/icons/gender-male.svg'
+import genderTransgender from '../../assets/icons/gender-transgender.svg'
 
 export const artists = [
   {

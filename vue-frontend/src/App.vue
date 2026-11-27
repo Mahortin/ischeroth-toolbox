@@ -8,7 +8,7 @@ import { RouterView } from 'vue-router'
     <img
       alt="Ischeroth logo"
       class="logo"
-      src="./assets/enlightenment.svg"
+      src="./assets/icons/enlightenment.svg"
       width="125"
       height="125"
     />
@@ -27,7 +27,7 @@ import { RouterView } from 'vue-router'
     <img
       alt="Ischeroth ruleset logo"
       class="logo-footer"
-      src="./assets/ruleicon-180px.svg"
+      src="./assets/icons/ruleicon-180px.svg"
       width="125"
       height="125"
     />

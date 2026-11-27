@@ -10,8 +10,8 @@ it('keeps the correct row when a filter removes one of two names with the same t
   const pinia = createPinia()
   const nameStore = useNameStore(pinia)
   nameStore.names = [
-    { id: 1, name: 'Rag', gender: 'neutral', group: 'goblin' },
-    { id: 2, name: 'Rag', gender: 'neutral', group: 'orc' },
+    { id: 1, name: 'Rag', gender: 'neutral', speciesGroup: 'goblin', cultureGroup: 'placeholder' },
+    { id: 2, name: 'Rag', gender: 'neutral', speciesGroup: 'orc', cultureGroup: 'human' },
   ]
   nameStore.loadedAt = Date.now()
 
@@ -20,7 +20,15 @@ it('keeps the correct row when a filter removes one of two names with the same t
   expect(rows.map((row) => row.text())).toEqual(['Rag', 'Rag'])
   const orcRow = rows[1].element
 
-  useNameFilterStore(pinia).addSpeciesFilter('orc')
+  const filters = useNameFilterStore(pinia)
+  filters.addSpeciesFilter('orc')
+  await nextTick()
+
+  expect(wrapper.findAll('li')).toHaveLength(1)
+  expect(wrapper.get('li').element).toBe(orcRow)
+
+  filters.resetSpeciesFilter()
+  filters.addSpeciesFilter('human')
   await nextTick()
 
   expect(wrapper.findAll('li')).toHaveLength(1)

@@ -2,6 +2,16 @@ import { defineStore } from 'pinia'
 import { fetchNames } from '@/services/nameService'
 import { useNameFilterStore } from './nameFilterStore'
 
+function filterNamesByGender(names, selectedGroups, gender) {
+  return names.filter(
+    (name) =>
+      name.gender === gender &&
+      (!selectedGroups.length ||
+        selectedGroups.includes(name.speciesGroup) ||
+        selectedGroups.includes(name.cultureGroup)),
+  )
+}
+
 export const useNameStore = defineStore('nameStore', {
   state: () => ({
     names: [],
@@ -18,27 +28,12 @@ export const useNameStore = defineStore('nameStore', {
       if (state.filter.genderFilter == 0) return state.names
       return state.names.filter((name) => state.filter.genderFilter.includes(name.gender))
     },
-    getFilteredDiverseNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'neutral')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'neutral',
-      )
-    },
-    getFilteredFemaleNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'female')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'female',
-      )
-    },
-    getFilteredMaleNames: (state) => {
-      if (state.filter.speciesFilter == 0)
-        return state.names.filter((name) => name.gender === 'male')
-      return state.names.filter(
-        (name) => state.filter.speciesFilter.includes(name.group) && name.gender === 'male',
-      )
-    },
+    getFilteredDiverseNames: (state) =>
+      filterNamesByGender(state.names, state.filter.speciesFilter, 'neutral'),
+    getFilteredFemaleNames: (state) =>
+      filterNamesByGender(state.names, state.filter.speciesFilter, 'female'),
+    getFilteredMaleNames: (state) =>
+      filterNamesByGender(state.names, state.filter.speciesFilter, 'male'),
   },
   actions: {
     async ensureLoaded({ force = false, ttlMs = 0 } = {}) {

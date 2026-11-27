@@ -41,9 +41,9 @@ const selectionLabel = computed(() => {
 </script>
 
 <template>
-  <details class="name-filters" open>
+  <details class="app-panel app-filter-panel" open>
     <summary>
-      <span class="summary-label">Filter</span>
+      <span class="app-filter-label">Filter</span>
       <span>{{ selectionLabel }}</span>
     </summary>
     <div class="filter-content">
@@ -121,23 +121,6 @@ const selectionLabel = computed(() => {
 </template>
 
 <style scoped>
-.name-filters {
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  background: var(--color-background-soft);
-}
-
-summary {
-  padding: 0.85rem 1rem;
-  cursor: pointer;
-}
-
-.summary-label {
-  margin-inline: 0.35rem 0.75rem;
-  font-weight: 600;
-  color: var(--color-heading);
-}
-
 .filter-content {
   display: grid;
   gap: 1rem;

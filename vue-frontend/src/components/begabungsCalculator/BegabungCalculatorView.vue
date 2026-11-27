@@ -24,8 +24,8 @@ function doNothing() {
 <template>
   <p v-if="loadFailed" role="alert">Der Begabungsrechner konnte nicht geladen werden.</p>
   <p v-else-if="!ready" role="status">Begabungsrechner wird geladen …</p>
-  <div v-else class="split-section">
-    <section aria-label="Attribute">
+  <div v-else class="split-section calculator">
+    <section class="attribute-list" aria-label="Attribute">
       <h2>Attribute</h2>
       <div
         v-for="attribute in attributeStore.attributes"
@@ -50,3 +50,11 @@ function doNothing() {
     </section>
   </div>
 </template>
+
+<style scoped>
+.calculator,
+.attribute-list {
+  display: grid;
+  gap: 0.75rem;
+}
+</style>

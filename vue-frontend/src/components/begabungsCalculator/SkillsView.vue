@@ -6,7 +6,7 @@ const store = useSkillStore()
 
 <template>
   <section v-if="store.getFilteredSkills.length" aria-label="Talente">
-    <h3>Talente</h3>
+    <h3 class="font-display">Talente</h3>
     <table>
       <thead>
         <tr>

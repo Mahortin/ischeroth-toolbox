@@ -26,7 +26,7 @@ function doNothing() {
   <p v-else-if="!ready" role="status">Begabungsrechner wird geladen …</p>
   <div v-else class="split-section calculator">
     <section class="attribute-list" aria-label="Attribute">
-      <h2>Attribute</h2>
+      <h2 class="font-display">Attribute</h2>
       <div
         v-for="attribute in attributeStore.attributes"
         :key="attribute.id"
@@ -44,7 +44,7 @@ function doNothing() {
       </div>
     </section>
     <section class="calculator-results" aria-labelledby="calculator-results-heading">
-      <h2 id="calculator-results-heading">Grundwerte und Talente</h2>
+      <h2 id="calculator-results-heading" class="font-display">Grundwerte und Talente</h2>
       <FilterView />
       <div class="app-panel result-panel">
         <template

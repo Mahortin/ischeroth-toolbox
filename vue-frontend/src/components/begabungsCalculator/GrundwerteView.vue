@@ -6,7 +6,7 @@ const store = useSkillStore()
 
 <template>
   <section v-if="store.getFilteredGrundwerte.length" aria-label="Grundwerte">
-    <h3>Grundwerte</h3>
+    <h3 class="font-display">Grundwerte</h3>
     <dl class="base-stats">
       <div v-for="stat in store.getFilteredGrundwerte" :key="stat.id">
         <dt>{{ stat.name }}</dt>
